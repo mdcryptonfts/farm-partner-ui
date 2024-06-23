@@ -83,9 +83,25 @@ export const ContextProvider = ({ children }) => {
 }    
 
   useEffect(() => {
-    getTokenBalances();
+    let isMounted = true;
+    if(isMounted){
+      getTokenBalances();
+    }
+    return () => {
+      isMounted = false;
+    }    
+  }, [isLoggedIn, currentUsername, refresh]);
+
+useEffect(() => {
+  let isMounted = true;
+  if(isMounted){
     getPrice();
-  }, [isLoggedIn, currentUsername]);
+  }
+  return () => {
+    isMounted = false;
+  }
+}, [])
+
 
   return (
     <StateContext.Provider
@@ -110,7 +126,9 @@ export const ContextProvider = ({ children }) => {
         txModalText,
         setTxModalText,
         price,
-        priceIsLoading
+        priceIsLoading,
+        refresh,
+        setRefresh
       }}
     >
       {children}

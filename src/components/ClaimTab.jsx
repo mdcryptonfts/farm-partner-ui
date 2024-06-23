@@ -17,6 +17,8 @@ const ClaimTab = (props) => {
     setTxIsLoading,
     setCurrentUsername,
     setWharfSession,
+    refresh,
+    setRefresh
   } = useStateContext();
 
   
@@ -46,8 +48,8 @@ const ClaimTab = (props) => {
           
           <button
             className="stake-button"
-            onClick={() => {
-              submitTransaction(
+            onClick={async () => {
+              await submitTransaction(
                 [getRewardAction(farm?.farm_name, wharfSession)],
                 "Your rewards have been claimed!",
                 setShowTxModal,
@@ -55,6 +57,7 @@ const ClaimTab = (props) => {
                 setTxIsLoading,
                 wharfSession
               );
+              setRefresh(!refresh);
             }}
           >
             CLAIM REWARDS

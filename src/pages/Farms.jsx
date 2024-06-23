@@ -21,19 +21,12 @@ import ManageTab from "../components/ManageTab";
 
 const Farms = () => {
   const {
-    wharfSession,
-    setWharfSession,
     showTxModal,
     setShowTxModal,
     txModalText,
-    setTxModalText,
     txIsLoading,
-    setTxIsLoading,
-    isLoggedIn,
     tokenBalances,
     balancesAreLoading,
-    getTokenBalances,
-    setCurrentUsername,
   } = useStateContext();
 
   const network = config.networks[config.currentNetwork];

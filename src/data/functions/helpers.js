@@ -27,7 +27,10 @@ export const calculateOuterHeight = (
   noPoolsHeight = 0,
   location = "any",
   claims,
-  claimsAreLoading = true
+  claimsAreLoading = true,
+  stake,
+  stakeIsLoading = true,
+  farm
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
     if (poolsAreLoading) return `${0 + originalheight}px`;
@@ -55,7 +58,21 @@ export const calculateOuterHeight = (
   }
 
   if (location == "Unstake") {
+    if (stakeIsLoading || (!stakeIsLoading && stake?.length == 0)) {
+      return `${originalheight + 180}px`;
+    } else if (
+      !stakeIsLoading &&
+      stake?.length > 0 &&
+      Date.now() / 1000 < stake[0]?.vesting_end_time
+    ) {
+      return `${originalheight + 195}px`;
+    }
+
     return `${originalheight + 280}px`;
+  }
+
+  if (location == "Stake" && farm?.vesting_time == 0) {
+      return `${noPoolsHeight + originalheight + 100}px`;
   }
 
   return `${noPoolsHeight + originalheight + 200}px`;
@@ -69,7 +86,10 @@ export const calculateInnerHeight = (
   noPoolsHeight = 0,
   location = "any",
   claims,
-  claimsAreLoading = true
+  claimsAreLoading = true,
+  stake,
+  stakeIsLoading = true,
+  farm
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
     if (poolsAreLoading) return `${0 + originalheight}px`;
@@ -97,8 +117,22 @@ export const calculateInnerHeight = (
   }
 
   if (location == "Unstake") {
+    if (stakeIsLoading || (!stakeIsLoading && stake?.length == 0)) {
+      return `${originalheight + 180}px`;
+    } else if (
+      !stakeIsLoading &&
+      stake?.length > 0 &&
+      Date.now() / 1000 < stake[0]?.vesting_end_time
+    ) {
+      return `${originalheight + 195}px`;
+    }
+
     return `${originalheight + 280}px`;
   }
+
+  if (location == "Stake" && farm?.vesting_time == 0) {
+    return `${noPoolsHeight + originalheight + 100}px`;
+}
 
   return `${noPoolsHeight + originalheight + 200}px`;
 };
@@ -279,19 +313,18 @@ export const showMyBalances = (tokens, loading) => {
 };
 
 export const sortFarms = (e, farms, setFarms) => {
+  let sortedFarmArray = [...farms];
 
-    let sortedFarmArray = [...farms];
-  
-    if(e.target.value == "Oldest"){
-      sortedFarmArray.sort((a, b) => a.time_created - b.time_created)
-    } else if(e.target.value == "Newest"){
-      sortedFarmArray.sort((a, b) => b.time_created - a.time_created)
-    } else if(e.target.value == "Farm Name a-z"){
-      sortedFarmArray.sort((a, b) => a.farm_name.localeCompare(b.farm_name));
-    } else if(e.target.value == "Farm Name z-a"){
-      sortedFarmArray.sort((a, b) => b.farm_name.localeCompare(a.farm_name));
-    }
-  
-    setFarms(sortedFarmArray)
-    return
-}
+  if (e.target.value == "Oldest") {
+    sortedFarmArray.sort((a, b) => a.time_created - b.time_created);
+  } else if (e.target.value == "Newest") {
+    sortedFarmArray.sort((a, b) => b.time_created - a.time_created);
+  } else if (e.target.value == "Farm Name a-z") {
+    sortedFarmArray.sort((a, b) => a.farm_name.localeCompare(b.farm_name));
+  } else if (e.target.value == "Farm Name z-a") {
+    sortedFarmArray.sort((a, b) => b.farm_name.localeCompare(a.farm_name));
+  }
+
+  setFarms(sortedFarmArray);
+  return;
+};

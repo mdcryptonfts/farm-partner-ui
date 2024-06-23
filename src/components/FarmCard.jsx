@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   FarmCardWrapper,
   FarmDetailsWrapper,
@@ -23,7 +23,7 @@ const FarmCard = (props) => {
   const network = config.networks[config.currentNetwork];
   const tabs = ["Reward Pools", "Stake", "Unstake", "Claim"];
 
-  const { tokenBalances, balancesAreLoading, wharfSession, isLoggedIn } =
+  const { wharfSession, isLoggedIn, refresh, setRefresh } =
     useStateContext();
 
   const index = props.index;
@@ -63,10 +63,11 @@ const FarmCard = (props) => {
     return () => {
       isMounted = false;
     };
-  }, [currentIndex, currentFarmTab]);
+  }, [currentIndex, currentFarmTab, refresh]);
 
   return (
-    <FarmCardWrapper height={calculateOuterHeight(pools, poolsAreLoading, 215, 100, 200, currentFarmTab, balances, claimsAreLoading)} show={currentIndex == index} farmTab={currentFarmTab}>
+    <FarmCardWrapper height={calculateOuterHeight(pools, poolsAreLoading, 215, 100, 200, currentFarmTab, balances, claimsAreLoading,   stake,
+      stakeIsLoading, farm)} show={currentIndex == index} farmTab={currentFarmTab}>
       <MessageWrapper top={"5px"} height={"40px"}>
         <SpaceBetweenDiv>
           <span>
@@ -98,7 +99,8 @@ const FarmCard = (props) => {
         {currentIndex == index ? "Hide Details" : "Show Details"}
       </ShowDetailsButton>
 
-      <FarmDetailsWrapper height={calculateInnerHeight(pools, poolsAreLoading, 115, 0, 200, currentFarmTab, balances, claimsAreLoading)} show={currentIndex == index} farmTab={currentFarmTab}>
+      <FarmDetailsWrapper height={calculateInnerHeight(pools, poolsAreLoading, 115, 0, 200, currentFarmTab, balances, claimsAreLoading,   stake,
+  stakeIsLoading, farm)} show={currentIndex == index} farmTab={currentFarmTab}>
         {currentIndex == index && (
           <>
             <MessageWrapper top={"5px"} height={"40px"}>

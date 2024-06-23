@@ -283,17 +283,20 @@ export const submitTransaction = async (
     );
     setTxIsLoading(true);
     setTxModalText(config.processingTxMessage);
-    const timer = setTimeout(() => {
-      setTxModalText(
-        <span>
-          <ModalSuccessCont>{success_svg}</ModalSuccessCont>
-          {successMessage}
-        </span>
-      );
+    await new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        setTxModalText(
+          <span>
+            <ModalSuccessCont>{success_svg}</ModalSuccessCont>
+            {successMessage}
+          </span>
+        );
 
-      setTxIsLoading(false);
-    }, config.spinnerDuration);
-    return () => clearTimeout(timer);
+        setTxIsLoading(false);
+        resolve();
+      }, config.spinnerDuration);
+      return () => clearTimeout(timer);
+    });
   } catch (e) {
     console.log("ERROR: ", e);
     setTxModalText(

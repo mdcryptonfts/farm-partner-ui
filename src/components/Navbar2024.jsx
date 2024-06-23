@@ -250,7 +250,7 @@ const Navbar2024 = () => {
               <UserDropDownBalancesCont>
                 <h3>MY BALANCES</h3>
                 {showMyBalances(tokenBalances, balancesAreLoading)}
-                <a href={`${currentWebsiteURL}/stake`}>
+                <a href={config.buyTokensUrl} target="none">
                   <UserDropDownBuyWaxDaoButton>
                     BUY {config.projectToken.symbol}
                   </UserDropDownBuyWaxDaoButton>
