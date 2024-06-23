@@ -4,7 +4,7 @@
     "localUrl": "http://localhost:3000",
     "production": false,
     "projectToken": {
-        "contract": "mdcryptonfts",
+        "contract": "token.waxdao",
         "symbol": "WAXDAO"
     },
     "ecosystem": {

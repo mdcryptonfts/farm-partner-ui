@@ -16,7 +16,9 @@ export const ContextProvider = ({ children }) => {
   const [balancesAreLoading, setBalancesAreLoading] = useState(true);  
   const [showTxModal, setShowTxModal] = useState(false);
   const [txModalText, setTxModalText] = useState("");
-
+  const [price, setPrice] = useState("");
+  const [priceIsLoading, setPriceIsLoading] = useState(true);
+  
   const network = config.networks[config.currentNetwork];
   const networkName = config.currentNetwork === "testnet" ? "waxtest" : "wax";
 
@@ -52,8 +54,37 @@ export const ContextProvider = ({ children }) => {
     setBalancesAreLoading(false);
   };
 
+  const getPrice = async () => {
+
+    setPriceIsLoading(true);
+
+    const requestData = {
+        id: `${config.projectToken.symbol}@${config.projectToken.contract}`,
+      };
+      
+      try {
+        const res = await axios
+        .post("https://tokens.waxdaobp.io/get-token", requestData, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        })    
+
+        if (res.data && res.data.tokenData) {
+            setPrice(res.data.tokenData.basic?.usd_price);
+            console.log(res.data);
+        }
+    } catch (error) {
+        console.log(`Failed to fetch token price. Error: ${error}`);
+    } finally {
+      setPriceIsLoading(false);
+    }           
+}    
+
   useEffect(() => {
     getTokenBalances();
+    getPrice();
   }, [isLoggedIn, currentUsername]);
 
   return (
@@ -77,7 +108,9 @@ export const ContextProvider = ({ children }) => {
         showTxModal,
         setShowTxModal,
         txModalText,
-        setTxModalText
+        setTxModalText,
+        price,
+        priceIsLoading
       }}
     >
       {children}

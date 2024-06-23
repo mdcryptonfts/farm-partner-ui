@@ -59,6 +59,8 @@ const Navbar2024 = () => {
     isLoggedIn,
     setIsLoggedIn,
     txIsLoading,
+    price,
+    priceIsLoading
   } = useStateContext();
 
   const [sessions, setSessions] = useState([]);
@@ -145,7 +147,7 @@ const Navbar2024 = () => {
         <LargeNav2024TopWrapper>
           <LargeNavTopLeftWrapper>
             <LargeNav2024TopItem>
-              {config.projectToken.symbol} PRICE: {"69 WAX"}
+              {config.projectToken.symbol} PRICE: {!priceIsLoading && `$${Number(price).toFixed(6)}`}
             </LargeNav2024TopItem>
 
             <LargeNavSocialIconsDiv>
@@ -335,7 +337,7 @@ const Navbar2024 = () => {
                 ))}
             </SmallNavSocialIconsDiv>
             <LargeNav2024TopItem>
-              {config.projectToken.symbol} PRICE: {"69 WAX"}
+              {config.projectToken.symbol} PRICE: {!priceIsLoading && `$${Number(price).toFixed(6)}`}
             </LargeNav2024TopItem>
           </SmallNavBottomWrapper>
         </UserDrowDownInnerScrollWrapper>
