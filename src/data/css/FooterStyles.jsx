@@ -46,6 +46,8 @@ export const FooterCont = styled.div`
 `;
 
 export const FooterHref = styled.a`
+  display: block;
+  padding-top: 7px;
   letter-spacing: 0.7px;
   transition: color 0.5s;
 `;
@@ -119,8 +121,6 @@ export const FooterLogo = styled.img`
 
 export const FooterBrandText = styled.div`
   margin-top: 30px;
-  width: 150px;
-  max-width: 150px;
   height: auto;
   max-height: 75px;
   margin-left: 20px;

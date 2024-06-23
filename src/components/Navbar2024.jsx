@@ -5,19 +5,8 @@ import {
   fetchSessionsFromLocalStorage,
   logInWithWharfkit,
   logOutWharfkit,
-  removeWharfSession,
-  switchWharfAccount,
 } from "../data/wharfkit";
-import cloud_logo from "../data/images/mycloudwallet.png";
-import anchor_logo from "../data/images/anchor.svg";
-import wombat_logo from "../data/images/wombat_logo.png";
-import scatter_logo from "../data/images/scatter_logo.png";
-import { FaTrashAlt } from "react-icons/fa";
-import {
-  Modal2024,
-  ModalContent2024,
-  ModalOverlay2024
-} from "../Styles";
+import { Modal2024, ModalContent2024, ModalOverlay2024 } from "../Styles";
 import {
   CloseDivXIconWrapper,
   LargeNav2024BottomWrapper,
@@ -25,9 +14,6 @@ import {
   LargeNav2024LinksWrapper,
   LargeNav2024TopItem,
   LargeNav2024TopWrapper,
-  LargeNavDropDownInnerWrapper,
-  LargeNavLinkDropDown,
-  LargeNavLinkDropDownRow,
   LargeNavSocialIconsDiv,
   LargeNavTopLeftWrapper,
   LargeNavTopRightWrapper,
@@ -42,101 +28,23 @@ import {
   SmallNavWrapper2024,
   SmallNavbar2024LoginButton,
   SmallScreenWalletsWrapper,
-  UserDropDown,
   UserDropDownBalancesCont,
   UserDropDownBuyWaxDaoButton,
   UserDropDownLinkButton,
-  UserDropDownTopLeft,
-  UserDropDownTopSection,
   UserDropDownWalletsSeparator,
   UserDropDownWalletsTitleCont,
   UserDrowDownInnerScrollWrapper,
 } from "../data/css/NavbarStyles";
-import { burger_menu_icon, down_arrow_svg, x_close_svg } from "../data/svgs";
-import NumberFormat from "react-number-format";
-import {
-  WaxAccountButton,
-  WaxAccountGap,
-  WaxAccountInnerCont,
-  WaxAccountLeft,
-  WaxAccountMiddle,
-  WaxAccountRight,
-} from "../data/css/SidebarStyles";
-import {
-  discord_svg,
-  docs_svg,
-  medium_svg,
-  telegram_svg,
-  twitter_svg,
-  water_svg,
-} from "../data/svgs";
+import { burger_menu_icon, docs_svg, down_arrow_svg, farm_svg, x_close_svg } from "../data/svgs";
 import LoadingDiv from "./LoadingDiv";
+import WaxAccount from "./WaxAccount";
+import { getSocialLogo, showMyBalances } from "../data/functions/helpers";
+import DropDownLarge from "./DropDownLarge";
 
-const showWaxAndWaxdaoBalance = (tokens, loading) => {
-  const waxColor = config.theme.darkGrey;
-  const waxdaoColor = config.theme.darkGrey;
-
-  if (loading)
-    return (
-      <span>
-        <h4 style={{ color: waxColor }}>0 WAX</h4>
-        <h4 style={{ color: waxdaoColor }}>0 LSWAX</h4>
-      </span>
-    );
-
-  let waxBalance = 0;
-  let lsWaxBalance = 0;
-
-  tokens.forEach((t) => {
-    if (t.currency === "WAX" && t.contract === "eosio.token") {
-      waxBalance = Number(t.amount).toFixed(2);
-    } else if (
-      t.currency === config.projectToken.symbol &&
-      t.contract === config.projectToken.contract
-    ) {
-      lsWaxBalance = Number(t.amount).toFixed(2);
-    }
-  });
-
-  return (
-    <span>
-      <h4 style={{ color: waxColor }}>
-        <NumberFormat
-          displayType="text"
-          thousandSeparator={true}
-          value={waxBalance}
-        />{" "}
-        WAX
-      </h4>
-      <h4 style={{ color: waxdaoColor }}>
-        <NumberFormat
-          displayType="text"
-          thousandSeparator={true}
-          value={lsWaxBalance}
-        />{" "}
-        LSWAX
-      </h4>
-    </span>
-  );
-};
-
-const getWalletLogo = (session) => {
-  if (session.walletPlugin.id == "anchor") return anchor_logo;
-  else if (session.walletPlugin.id == "cloudwallet") return cloud_logo;
-  else if (session.walletPlugin.id == "wombat") return wombat_logo;
-  else if (session.walletPlugin.id == "scatter") return scatter_logo;
-};
-
-const handleNavBlur = (e, setSelectedTab) => {
-  if (
-    e.relatedTarget &&
-    e.relatedTarget.href &&
-    e.relatedTarget.href.indexOf("http") > -1
-  ) {
-    return;
-  }
-  setSelectedTab("");
-};
+const network = config.networks[config.currentNetwork];
+const currentWebsiteURL = config.production
+  ? network.urls.website
+  : config.localUrl;
 
 const Navbar2024 = () => {
   const {
@@ -146,19 +54,12 @@ const Navbar2024 = () => {
     showTxModal,
     setShowTxModal,
     setWharfSession,
-    userStake,
-    stakeIsLoading,
     tokenBalances,
     balancesAreLoading,
     isLoggedIn,
     setIsLoggedIn,
     txIsLoading,
   } = useStateContext();
-
-  const network = config.networks[config.currentNetwork];
-  const currentWebsiteURL = config.production
-    ? network.urls.website
-    : config.localUrl;
 
   const [sessions, setSessions] = useState([]);
   const [selectedTab, setSelectedTab] = useState("");
@@ -177,9 +78,6 @@ const Navbar2024 = () => {
     if (currentUsername && isLoggedIn) {
       setCurrentUsername(currentUsername);
       setIsLoggedIn(true);
-      console.log("is logged in")
-    } else {
-      console.log("You are not logged in");
     }
   }, [currentUsername]);
 
@@ -246,33 +144,17 @@ const Navbar2024 = () => {
       <LargeNavWrapper2024>
         <LargeNav2024TopWrapper>
           <LargeNavTopLeftWrapper>
-            <LargeNav2024TopItem>LSWAX PRICE: {"69 WAX"}</LargeNav2024TopItem>
             <LargeNav2024TopItem>
-              {/* CIRCULATING SUPPLY: {formatNumber(Number(supply))} */}
+              {config.projectToken.symbol} PRICE: {"69 WAX"}
             </LargeNav2024TopItem>
-            <LargeNav2024TopItem>
-              {/* MARKET CAP: {formatNumber(Number(marketCap))}{" WAX"} */}
-            </LargeNav2024TopItem>
+
             <LargeNavSocialIconsDiv>
-              {/* Telegram */}
-              <a href={network.urls.telegram} target="none">
-                {telegram_svg}
-              </a>
-
-              {/* Twitter */}
-              <a href={network.urls.twitter} target="none">
-                {twitter_svg}
-              </a>
-
-              {/* Discord */}
-              <a href={network.urls.discord} target="none">
-                {discord_svg}
-              </a>
-
-              {/* Medium */}
-              <a href={network.urls.medium} target="none">
-                {medium_svg}
-              </a>
+              {Object.entries(config.socials).length > 0 &&
+                Object.entries(config.socials).map(([key, value]) => (
+                  <a href={value} target="none">
+                    {getSocialLogo(key)}
+                  </a>
+                ))}
             </LargeNavSocialIconsDiv>
           </LargeNavTopLeftWrapper>
           <LargeNavTopRightWrapper>
@@ -288,145 +170,24 @@ const Navbar2024 = () => {
               {isLoggedIn ? currentUsername : "LOG IN"}
             </LargeNavbar2024LoginButton>
             <ModalOverlay2024 className={!showUserDropDown && "hidden"} />
-            <UserDropDown open={showUserDropDown}>
-              <UserDrowDownInnerScrollWrapper>
-                <UserDropDownTopSection>
-                  <UserDropDownTopLeft></UserDropDownTopLeft>
-
-                  <div
-                    style={{
-                      //border: "1px solid yellow",
-                      width: "10%",
-                      textAlign: "right",
-                      paddingRight: "5px",
-                      fontSize: "22px",
-                      fontWeight: "400",
-                      color: config.theme.textMain,
-                    }}
-                  >
-                    <button
-                      onClick={() => {
-                        setShowUserDropDown(false);
-                      }}
-                    >
-                      X
-                    </button>
-                  </div>
-                </UserDropDownTopSection>
-                <UserDropDownBalancesCont>
-                  <h3>MY BALANCES</h3>
-                  {showWaxAndWaxdaoBalance(tokenBalances, balancesAreLoading)}
-                  <a href={`${currentWebsiteURL}/stake`}>
-                    <UserDropDownBuyWaxDaoButton>
-                      BUY SWAX/LSWAX
-                    </UserDropDownBuyWaxDaoButton>
-                  </a>
-                </UserDropDownBalancesCont>
-                <a href={`${currentWebsiteURL}/farms`}>
-                  <UserDropDownLinkButton>
-                    <h3>FARMS</h3>
-                    <p>View, create and manage token farms</p>
-                  </UserDropDownLinkButton>
-                </a>
-
-                <a href={network.urls.docs} target="none">
-                  <UserDropDownLinkButton>
-                    <h3>DOCS</h3>
-                    <p>Find answers to all of your questions</p>
-                  </UserDropDownLinkButton>
-                </a>
-
-                <UserDropDownWalletsSeparator />
-                <UserDropDownWalletsTitleCont>
-                  <h3>MY WALLETS</h3>
-                  <button
-                    onClick={() => {
-                      logInWithWharfkit(setCurrentUsername, setWharfSession);
-                    }}
-                  >
-                    +
-                  </button>
-                </UserDropDownWalletsTitleCont>
-                <span className={sessions?.length > 1 && "hidden"}>
-                  <UserDropDownLinkButton
-                    onClick={() =>
-                      logOutWharfkit(setCurrentUsername, setWharfSession)
-                    }
-                  >
-                    <h3>LOG OUT</h3>
-                    <p>End your session with WaxFusion</p>
-                  </UserDropDownLinkButton>
-                </span>
-                {sessions?.length > 1 &&
-                  sessions.map((item, index) => (
-                    <span
-                      key={index}
-                      className={
-                        item.actor == currentUsername &&
-                        item.permission ==
-                          JSON.parse(localStorage.getItem("wharf--session"))
-                            .permission &&
-                        "hidden"
-                      }
-                    >
-                      <WaxAccountButton>
-                        <WaxAccountInnerCont>
-                          <WaxAccountLeft>
-                            <img src={getWalletLogo(item)} />
-                          </WaxAccountLeft>
-
-                          <WaxAccountMiddle
-                            onClick={() => {
-                              switchWharfAccount(
-                                item.actor,
-                                item.permission,
-                                item.walletPlugin.id,
-                                setCurrentUsername,
-                                setWharfSession
-                              );
-                            }}
-                          >
-                            {item.actor} ({item.permission})
-                          </WaxAccountMiddle>
-
-                          <WaxAccountGap />
-
-                          <WaxAccountRight
-                            onClick={() => {
-                              removeWharfSession(
-                                item.actor,
-                                item.permission,
-                                item.walletPlugin.id,
-                                setSessions
-                              );
-                            }}
-                          >
-                            <FaTrashAlt
-                              style={{
-                                display: "inline-block",
-                                color: config.theme.darkBlue,
-                              }}
-                            />
-                          </WaxAccountRight>
-                        </WaxAccountInnerCont>
-                      </WaxAccountButton>
-                    </span>
-                  ))}
-              </UserDrowDownInnerScrollWrapper>
-            </UserDropDown>
+            <DropDownLarge
+              showUserDropDown={showUserDropDown}
+              setShowUserDropDown={setShowUserDropDown}
+              sessions={sessions}
+              setSessions={setSessions}
+            />
           </LargeNavTopRightWrapper>
         </LargeNav2024TopWrapper>
         <LargeNav2024BottomWrapper>
           <a href={currentWebsiteURL}>
-            {/* <img src={header_logo} /> */}
-            <h2>WaxFusion</h2>
+            <h2>{config.appName}</h2>
           </a>
           <LargeNav2024LinksWrapper>
             <a href={`${currentWebsiteURL}/farms`}>
-              <LargeNav2024LinkButton>{water_svg} FARMS</LargeNav2024LinkButton>
+              <LargeNav2024LinkButton>{farm_svg} FARMS</LargeNav2024LinkButton>
             </a>
 
-            <a href={network.urls.docs} target="none">
+            <a href={config.socials.docs} target="none">
               <LargeNav2024LinkButton>{docs_svg} DOCS</LargeNav2024LinkButton>
             </a>
           </LargeNav2024LinksWrapper>
@@ -440,8 +201,7 @@ const Navbar2024 = () => {
         <LargeNav2024TopWrapper>
           <SmallNavTopLeftWrapper>
             <a href={currentWebsiteURL}>
-              {/* <img src={white_logo} /> */}
-              <h2>WaxFusion</h2>
+              <h2>{config.appName}</h2>
             </a>
           </SmallNavTopLeftWrapper>
           <SmallNavTopRightWrapper open={showSmallScreenDropDown}>
@@ -487,10 +247,10 @@ const Navbar2024 = () => {
             <span>
               <UserDropDownBalancesCont>
                 <h3>MY BALANCES</h3>
-                {showWaxAndWaxdaoBalance(tokenBalances, balancesAreLoading)}
+                {showMyBalances(tokenBalances, balancesAreLoading)}
                 <a href={`${currentWebsiteURL}/stake`}>
                   <UserDropDownBuyWaxDaoButton>
-                    BUY SWAX/LSWAX
+                    BUY {config.projectToken.symbol}
                   </UserDropDownBuyWaxDaoButton>
                 </a>
               </UserDropDownBalancesCont>
@@ -504,7 +264,7 @@ const Navbar2024 = () => {
             </UserDropDownLinkButton>
           </a>
 
-          <a href={network.urls.docs} target="none">
+          <a href={config.socials.docs} target="none">
             <UserDropDownLinkButton>
               <h3>DOCS</h3>
               <p>Find answers to all of your questions</p>
@@ -553,47 +313,11 @@ const Navbar2024 = () => {
                         "hidden"
                       }
                     >
-                      <WaxAccountButton>
-                        <WaxAccountInnerCont>
-                          <WaxAccountLeft>
-                            <img src={getWalletLogo(item)} />
-                          </WaxAccountLeft>
-
-                          <WaxAccountMiddle
-                            onClick={() => {
-                              switchWharfAccount(
-                                item.actor,
-                                item.permission,
-                                item.walletPlugin.id,
-                                setCurrentUsername,
-                                setWharfSession
-                              );
-                            }}
-                          >
-                            {item.actor} ({item.permission})
-                          </WaxAccountMiddle>
-
-                          <WaxAccountGap />
-
-                          <WaxAccountRight
-                            onClick={() => {
-                              removeWharfSession(
-                                item.actor,
-                                item.permission,
-                                item.walletPlugin.id,
-                                setSessions
-                              );
-                            }}
-                          >
-                            <FaTrashAlt
-                              style={{
-                                display: "inline-block",
-                                color: config.theme.darkBlue,
-                              }}
-                            />
-                          </WaxAccountRight>
-                        </WaxAccountInnerCont>
-                      </WaxAccountButton>
+                      <WaxAccount
+                        key={index}
+                        item={item}
+                        setSessions={setSessions}
+                      />
                     </span>
                   ))}
               </SmallScreenWalletsWrapper>
@@ -603,27 +327,16 @@ const Navbar2024 = () => {
           <br />
           <SmallNavBottomWrapper>
             <SmallNavSocialIconsDiv>
-              {/* Telegram */}
-              <a href={network.urls.telegram} target="none">
-                {telegram_svg}
-              </a>
-
-              {/* Twitter */}
-              <a href={network.urls.twitter} target="none">
-                {twitter_svg}
-              </a>
-
-              {/* Discord */}
-              <a href={network.urls.discord} target="none">
-                {discord_svg}
-              </a>
-
-              {/* Medium */}
-              <a href={network.urls.medium} target="none">
-                {medium_svg}
-              </a>
+              {Object.entries(config.socials).length > 0 &&
+                Object.entries(config.socials).map(([key, value]) => (
+                  <a href={value} target="none">
+                    {getSocialLogo(key)}
+                  </a>
+                ))}
             </SmallNavSocialIconsDiv>
-            <LargeNav2024TopItem>LSWAX PRICE: {"69 WAX"}</LargeNav2024TopItem>
+            <LargeNav2024TopItem>
+              {config.projectToken.symbol} PRICE: {"69 WAX"}
+            </LargeNav2024TopItem>
           </SmallNavBottomWrapper>
         </UserDrowDownInnerScrollWrapper>
       </SmallNavDropDown>

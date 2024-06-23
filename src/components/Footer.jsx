@@ -1,75 +1,66 @@
-import React from 'react';
-import { FooterCont, ColumnLinks, ColumnTitle, FooterBrandText, FooterColumn, FooterHref, FooterLeft, FooterRight, SocialIconsDiv } from '../data/css/FooterStyles';
-import { discord_svg, medium_svg, telegram_svg, twitter_svg } from '../data/svgs';
-import config from "../data/config.json"
-
+import React from "react";
+import {
+  FooterCont,
+  ColumnLinks,
+  ColumnTitle,
+  FooterBrandText,
+  FooterColumn,
+  FooterHref,
+  FooterLeft,
+  FooterRight,
+  SocialIconsDiv,
+} from "../data/css/FooterStyles";
+import config from "../data/config.json";
+import { capitalizeFirstLetter, getSocialLogo } from "../data/functions/helpers";
 
 const Footer = () => {
   const network = config.networks[config.currentNetwork];
-  const currentWebsiteURL = config.production ? network.urls.website : config.localUrl;
+  const currentWebsiteURL = config.production
+    ? network.urls.website
+    : config.localUrl;
 
   return (
     <FooterCont>
       <FooterLeft>
-      {/* <FooterLogo src={header_logo} /> */}
-      <FooterBrandText>
-        WaxFusion
-      </FooterBrandText>
+        <FooterBrandText>{config.appName}</FooterBrandText>
       </FooterLeft>
 
       <FooterRight>
-
-      <FooterColumn>
-        <ColumnTitle>
-        Ecosystem
-        </ColumnTitle>
-        <ColumnLinks>
-        <FooterHref href={`${currentWebsiteURL}/stake`}>Liquid Staking</FooterHref><br/>
-        <FooterHref href={`${currentWebsiteURL}/rent`}>Short CPU Rental</FooterHref><br/>
-        <FooterHref href={`${currentWebsiteURL}/long-term-rent`}>Long CPU Rental</FooterHref><br/>
-        <FooterHref href={`${currentWebsiteURL}/powerup`}>PowerUp</FooterHref><br/>
-        
-        </ColumnLinks>
+        <FooterColumn>
+          <ColumnTitle>Ecosystem</ColumnTitle>
+          <ColumnLinks>
+          {Object.entries(config.ecosystem).length > 0 &&
+          Object.entries(config.ecosystem).map(([key, value]) => (
+            <FooterHref href={value} target="none">
+              {key}
+            </FooterHref>
+          ))}           
+          </ColumnLinks>
         </FooterColumn>
-
 
         <FooterColumn>
-        <ColumnTitle>
-        Support
-        </ColumnTitle>
-        <ColumnLinks>
-        <FooterHref href={network.urls.docs} target="none">Documentation</FooterHref><br/>
-        <FooterHref href={network.urls.discord} target="none">Discord</FooterHref><br/>
-        <FooterHref href={network.urls.telegram} target="none">Telegram</FooterHref><br/>
-        </ColumnLinks>
+          <ColumnTitle>Support</ColumnTitle>
+          <ColumnLinks>
+          {Object.entries(config.socials).length > 0 &&
+            Object.entries(config.socials).map(([key, value]) => (
+              <FooterHref href={value} target="none">
+                {capitalizeFirstLetter(key)}
+              </FooterHref>
+            ))}       
+          </ColumnLinks>
         </FooterColumn>
-
-
       </FooterRight>
 
       <SocialIconsDiv>
-        {/* Telegram */}
-        <a href={network.urls.telegram} target="none">
-          {telegram_svg}
-        </a>
-
-      {/* Twitter */}
-      <a href={network.urls.twitter} target="none">
-        {twitter_svg}
-      </a>
-
-      {/* Discord */}
-      <a href={network.urls.discord} target="none">
-        {discord_svg}
-      </a>
-
-      {/* Medium */}
-      <a href={network.urls.medium} target="none">
-        {medium_svg}
-      </a>       
+        {Object.entries(config.socials).length > 0 &&
+          Object.entries(config.socials).map(([key, value]) => (
+            <a href={value} target="none">
+              {getSocialLogo(key)}
+            </a>
+          ))}
       </SocialIconsDiv>
     </FooterCont>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

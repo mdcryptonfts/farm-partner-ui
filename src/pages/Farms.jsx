@@ -16,7 +16,7 @@ import { useSearchParams } from "react-router-dom";
 import { useGetFarmsByPartner } from "../components/CustomHooks/useGetFarmsByPartner";
 import { InputWrapper, StakeContainer } from "../data/css/Farms";
 import FarmCard from "../components/FarmCard";
-import { farmSortMethods } from "../data/functions/helpers";
+import { farmSortMethods, sortFarms } from "../data/functions/helpers";
 import ManageTab from "../components/ManageTab";
 
 const Farms = () => {
@@ -68,7 +68,7 @@ const Farms = () => {
 
   // Custom Hooks
   const [prices, getFarmPrices, pricesAreLoading] = useGetFarmPrices();
-  const [farms, getFarms, farmsAreLoading] = useGetFarmsByPartner();
+  const [farms, setFarms, getFarms, farmsAreLoading] = useGetFarmsByPartner();
 
   useEffect(() => {
     let isMounted = true;
@@ -191,7 +191,7 @@ const Farms = () => {
                   <InputWrapper wide={true}>
                     <select
                       onChange={(e) => {
-                        //handleSortingRentals(e, rentals, setRentals);
+                        sortFarms(e, farms, setFarms);
                       }}
                     >
                       <option hidden>Sort By</option>

@@ -6,7 +6,6 @@ import {
   StakeContainer,
 } from "../data/css/Farms";
 import { FoldersRowCentered, LogoPlusHeaderWrapper } from "../data/css/Form";
-import { stake_svg } from "../data/svgs";
 import {
   FoldersContainer2024,
   MessageWrapper,
@@ -69,7 +68,6 @@ const CreateFarm = (props) => {
   return (
     <StakeContainer>
       <LogoPlusHeaderWrapper>
-        {stake_svg}
         <h2>Farm Creator</h2>
       </LogoPlusHeaderWrapper>
 

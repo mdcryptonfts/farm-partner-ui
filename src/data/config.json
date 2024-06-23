@@ -1,11 +1,25 @@
 {
+    "appName": "WaxDAO Farms",
     "currentNetwork": "testnet",
-    "production": false,
     "localUrl": "http://localhost:3000",
-    "appName": "WaxDAO Token Farms",
+    "production": false,
     "projectToken": {
         "contract": "mdcryptonfts",
         "symbol": "WAXDAO"
+    },
+    "ecosystem": {
+        "Partner Contract": "https://github.com/mdcryptonfts/farm-partner-contract",
+        "Partner UI": "https://github.com/mdcryptonfts/farm-partner-ui",
+        "WaxDAO": "https://waxdao.io",
+        "WaxFusion": "https://waxfusion.io"
+    },
+    "socials": {
+        "discord": "https://discord.com/invite/xdvn5dkqvP",
+        "docs": "https://waxdao.gitbook.io/waxdao",
+        "github": "https://github.com/mdcryptonfts",
+        "medium": "https://blog.waxdao.io",
+        "telegram": "https://t.me/hoodpunks",
+        "twitter": "https://x.com/waxdao_io"
     },
     "txSettings": {
         "broadcast": true,
@@ -38,9 +52,7 @@
                 ]
             },
             "urls": {
-                "docs": "https://waxdao.gitbook.io/waxdao",
                 "explorer": "https://waxblock.io",
-                "telegram": "https://t.me/hoodpunks",
                 "website": "https://farms.waxdao.io"
             }
         },
@@ -60,9 +72,7 @@
                 ]
             },            
             "urls": {
-                "docs": "https://waxdao.gitbook.io/waxdao",
                 "explorer": "https://testnet.waxblock.io",
-                "telegram": "https://t.me/hoodpunks",
                 "website": "https://testfarms.waxdao.io"
             }
         }        

@@ -39,5 +39,5 @@ export const useGetFarmsByPartner = () => {
         setLoading(false);
     }
 
-    return [farms, getFarms, loading]
+    return [farms, setFarms, getFarms, loading]
 }

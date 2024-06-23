@@ -27,7 +27,6 @@ export const LargeNavWrapper2024 = styled.div`
   border-bottom: 1px solid ${config.theme.textMain};
   height: 110px;
   bottom: 0px;
-  //display: flex;
   color: white;
   text-align: center;
   font-size: 12px;
@@ -61,7 +60,6 @@ export const LargeNavTopRightWrapper = styled.div`
   max-width: 20%;
   justify-content: right;
   height: 100%;
-  //border: 1px solid green;
   padding-right: 10px;
   align-items: center;
 `;
@@ -71,7 +69,6 @@ export const LargeNav2024TopItem = styled.div`
   padding-right: 10px;
   font-size: 14px;
   color: ${config.theme.textMain};
-  //border: 1px solid green;
   box-sizing: border-box;
   padding-top: 5px;
   height: 100%;
@@ -123,7 +120,6 @@ export const LargeNav2024LinksWrapper = styled.div`
   align-items: center;
   justify-content: left;
   box-sizing: border-box;
-  //border: 1px solid green;
   width: 750px;
   padding-left: 10px;
 `;
@@ -149,7 +145,6 @@ export const LargeNav2024LinkButton = styled.button`
 
   :hover {
     color: ${config.theme.textMain};
-    //transition: color 0.5s;
   }
 `;
 
@@ -214,7 +209,6 @@ export const LargeNavLinkDropDownRow = styled.div`
 
   :hover {
     opacity: 100%;
-    //color: #249be0;
   }
 
   p {
@@ -237,7 +231,6 @@ export const LargeNav2024SearchBarWrapper = styled.div`
   flex-grow: 1;
   box-sizing: border-box;
   height: 100%;
-  //border: 1px solid green;
   justify-content: right;
   padding-right: 15px;
 
@@ -265,8 +258,6 @@ export const UserDropDown = styled.div`
   opacity: ${(props) => (props.open ? "100%" : "0%")};
   transition: visibility 0s, opacity 0.5s;
   width: 350px;
-  //height: 500px;
-  //background-color: ${config.theme.darkBlue};
 
   background: rgb(156, 207, 225);
   background: -moz-radial-gradient(
@@ -321,14 +312,12 @@ export const UserDropDownTopSection = styled.div`
   display: flex;
   justify-content: left;
   box-sizing: border-box;
-  //border: 1px solid green;
 `;
 
 export const UserDropDownTopLeft = styled.div`
   display: flex;
   flex-grow: 1;
   height: 100%;
-  //border: 1px solid magenta;
   align-items: center;
   padding-left: 5px;
 `;
@@ -349,7 +338,6 @@ export const UserDropDownUserNameCont = styled.div`
   letter-spacing: 1px;
   color: ${config.theme.textMain};
   padding-left: 10px;
-  //border: 1px solid green;
 
   h3 {
   }
@@ -369,7 +357,7 @@ export const UserDropDownBalancesCont = styled.div`
   margin-right: auto;
   background-color: white;
   border-radius: 10px;
-  height: 145px;
+  height: 125px;
 
   @media (max-width: 1100px) {
     margin-left: 10px;
@@ -408,24 +396,14 @@ export const UserDropDownBalancesCont = styled.div`
 
 export const UserDropDownBuyWaxDaoButton = styled.button`
   width: 100%;
-
   height: 30px;
   color: white;
   text-align: center;
   transition: color 1s, border-color 1s;
-
   background-color: ${config.theme.darkBlue};
   border-radius: 7px;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
 
-  :hover {
-    //background-color: ${config.theme.hoverColor};
-    //transition: background-color 0.3s;
-    //color: ${config.theme.textMain};
-    //transition: color 1.5s, border-color 1.5s;
-    //border-color: ${config.theme.textMain};
-    //transition: border-color 0.5s;
-  }
 `;
 
 export const UserDropDownLinkButton = styled.div`
@@ -456,7 +434,6 @@ export const UserDropDownLinkButton = styled.div`
 
   :hover {
     cursor: pointer;
-    //background-color: ${config.theme.hoverColor};
   }
 `;
 
@@ -525,7 +502,6 @@ export const SmallNavWrapper2024 = styled.div`
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9ccfe1",endColorstr="#74b2d1",GradientType=1);
   height: 45px;
   bottom: 0px;
-  //display: flex;
   color: white;
   text-align: center;
   font-size: 12px;
@@ -542,7 +518,6 @@ export const SmallNav2024SearchBarWrapper = styled.div`
   flex-grow: 1;
   box-sizing: border-box;
   height: 100%;
-  //border: 1px solid green;
   justify-content: center;
   padding-right: 15px;
   padding-right: 15px;
@@ -586,7 +561,6 @@ export const SmallNavTopRightWrapper = styled.div`
   max-width: 20%;
   justify-content: right;
   height: 100%;
-  //border: 1px solid green;
   padding-right: 10px;
   align-items: center;
 
@@ -615,7 +589,6 @@ export const SmallNavDropDown = styled.div`
   top: 0px;
   bottom: 0px;
   z-index: 15011;
-  //background-color: ${config.theme.backgroundDark};
   padding-top: 10px;
   padding-bottom: 10px;
   visibility: ${(props) => (props.open ? "visible" : "hidden")};
@@ -651,21 +624,18 @@ export const SmallNavWelcomeWrapper = styled.div`
   display: flex;
   justify-content: left;
   box-sizing: border-box;
-  //border: 1px solid magenta;
 `;
 
 export const SmallNavWelcomeInnerCont = styled.div`
   width: 100%;
   height: 75px;
   display: flex;
-  //border: 1px solid yellow;
   box-sizing: border-box;
 `;
 
 export const SmallNavWelcomeSvgWrapper = styled.div`
   width: 75px;
   height: 75px;
-  //border: 1px solid green;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -691,7 +661,6 @@ export const SmallNavWelcomeRightCont = styled.div`
     font-size: 12px;
     letter-spacing: 0.7px;
     color: ${config.theme.textSecondaryDarker};
-    //border: 1px solid red;
     margin: 0px;
   }
 
@@ -715,7 +684,6 @@ export const SmallNavLoginButtonWrapper = styled.div`
 
 export const SmallNavbar2024LoginButton = styled.button`
   width: 200px;
-  //border: 1px solid ${config.theme.textSecondaryDarker};
   border-radius: 5px;
   height: 30px;
   background-color: ${config.theme.darkBlue};
@@ -850,14 +818,12 @@ export const SmallNavSocialIconsDiv = styled.div`
 
     svg{
         fill: ${config.theme.darkBlue};
-        //opacity: 60%;
         width: 20px;
         height: 20px;
         transition: fill 0.3s;
 
         :hover{
             fill: ${config.theme.textMain}
-            //opacity: 100%;
             cursor: pointer;
         }
     }
@@ -866,7 +832,6 @@ export const SmallNavSocialIconsDiv = styled.div`
 export const LargeNavSocialIconsDiv = styled.div`
   width: auto;
   padding-top: 13px;
-  //padding-left: 10px;
   padding-bottom: 15px;
   display: flex;
   justify-content: center;
@@ -876,14 +841,12 @@ export const LargeNavSocialIconsDiv = styled.div`
 
   svg {
     fill: ${config.theme.darkBlue};
-    //opacity: 60%;
     width: 20px;
     height: 20px;
     transition: fill 0.3s;
 
     :hover {
       fill: white;
-
       cursor: pointer;
     }
   }
