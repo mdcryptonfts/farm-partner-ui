@@ -1,0 +1,95 @@
+{
+    "currentNetwork": "testnet",
+    "production": false,
+    "localUrl": "http://localhost:3000",
+    "appName": "WaxDAO Token Farms",
+    "projectToken": {
+        "contract": "mdcryptonfts",
+        "symbol": "WAXDAO"
+    },
+    "txSettings": {
+        "broadcast": true,
+        "expireSeconds": 300
+    },
+    "processingTxMessage": "Processing your transaction...",
+    "spinnerDuration": 2000,
+    "networks": {
+        "mainnet": {
+            "chainId": "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4",
+            "contracts": {
+                "partner": "prtnr.waxdao",
+                "waxdao": "tf.waxdao"
+            },
+            "endpoints": {
+                "chain": [
+                    "https://api.waxdao.io",
+                    "https://api.hivebp.io",
+                    "https://api.waxsweden.org",
+                    "https://api2.hivebp.io",
+                    "https://api3.hivebp.io",
+                    "https://wax.eosusa.io",
+                    "https://wax.eosdac.io"                    
+                ],
+                "lightapi": [
+                    "https://light-api.waxdaobp.io",
+                    "https://wax.light-api.net",
+                    "https://lightapi-wax.tacocrypto.io",
+                    "https://light-api-wax-main.wecan.dev"                    
+                ]
+            },
+            "urls": {
+                "docs": "https://waxdao.gitbook.io/waxdao",
+                "explorer": "https://waxblock.io",
+                "telegram": "https://t.me/hoodpunks",
+                "website": "https://farms.waxdao.io"
+            }
+        },
+        "testnet": {
+            "chainId": "f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12",
+            "contracts": {
+                "partner": "prtnr.waxdao",
+                "waxdao": "tf.waxdao"
+            },
+            "endpoints": {
+                "chain": [
+                    "https://test-api.waxdaobp.io",
+                    "https://waxtest.api.eosnation.io"
+                ],
+                "lightapi": [
+                    "https://testnet-lightapi.eosams.xeos.me"
+                ]
+            },            
+            "urls": {
+                "docs": "https://waxdao.gitbook.io/waxdao",
+                "explorer": "https://testnet.waxblock.io",
+                "telegram": "https://t.me/hoodpunks",
+                "website": "https://testfarms.waxdao.io"
+            }
+        }        
+    },
+    "theme": {
+        "primary": "#8068ab",
+        "textMain": "white",
+        "offWhite": "#ebebeb",
+        "textSecondary": "#BCBCBC",
+        "textSecondaryDarker": "#9C9999",
+        "secondaryLight": "#2e2d2d",
+        "secondaryMedium": "#262525",
+        "secondaryDark": "#1c1c1b",
+        "secondaryDarker": "#161616",
+        "darkGrey": "#343a40",
+        "hoverColor": "rgba(99, 99, 99, 0.3)",
+        "backgroundDark": "#0c0d0d",
+        "secondary": "#D91E75",
+        "danger": "#dc3545",
+        "caution": "#ffc107",
+        "cautionOrange": "#c2810a",
+        "success": "#28a745",
+        "background": "#eef5ef",
+        "darkBlue": "#03273c",
+        "lighterBlue": "#1c4157",
+        "gray": "#838181",
+        "offWhiteDarker": "#d4dcd5",
+        "offWhiteDarkest": "#b9bdb9"  
+    }
+}

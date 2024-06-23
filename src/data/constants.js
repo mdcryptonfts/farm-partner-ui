@@ -1,0 +1,1 @@
+export const int64Max = 9223372036854775807n;

@@ -1,0 +1,35 @@
+.daterangepicker-control-section {
+	max-width: 400px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 10px;
+	border-radius: 15px;
+	padding-left: 1em;
+	padding-right: 1em;
+
+}
+
+.react-datepicker-wrapper {
+	width: 100%;
+	max-width: 100%;
+}
+
+.react-datepicker__input-container {
+	width: 100%;
+	max-width: 100%;
+}
+
+.e-input-group .e-input-group-icon:last-child,
+.e-input-group.e-control-wrapper .e-input-group-icon:last-child {
+	font-size: 18px;
+	color: white;
+
+}
+
+.e-input-group.e-control-wrapper.customClass {
+	font-size: 18px;
+	color: whitesmoke;
+
+
+}
