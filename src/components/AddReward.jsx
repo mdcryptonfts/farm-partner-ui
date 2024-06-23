@@ -19,7 +19,6 @@ import {
   showBalance,
 } from "../data/functions/helpers";
 import { addRewardTransaction } from "../data/functions/transactions";
-import { logInWithWharfkit } from "../data/wharfkit";
 import "react-datepicker/dist/react-datepicker.css";
 import "../data/css/datepicker.css";
 import DatePicker from "react-datepicker";
@@ -29,9 +28,6 @@ import SelectTokenModal from "./SelectTokenModal";
 
 const AddReward = (props) => {
   const {
-    isLoggedIn,
-    setCurrentUsername,
-    setWharfSession,
     wharfSession,
     setShowTxModal,
     setTxModalText,
@@ -40,7 +36,9 @@ const AddReward = (props) => {
     balancesAreLoading,
     showTxModal,
     txModalText,
-    txIsLoading
+    txIsLoading,
+    refresh,
+    setRefresh
   } = useStateContext();
 
   const farmName = props.farmName;
@@ -206,8 +204,8 @@ const AddReward = (props) => {
             <br />
             <button
               className="stake-button"
-              onClick={() => {
-                addRewardTransaction(
+              onClick={async () => {
+                await addRewardTransaction(
                   farmName,
                   rewardAmount,
                   startNow,
@@ -219,6 +217,7 @@ const AddReward = (props) => {
                   setTxIsLoading,
                   wharfSession
                 );
+                setRefresh(!refresh);
               }}
             >
               ADD REWARD

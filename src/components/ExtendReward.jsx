@@ -27,9 +27,6 @@ import { Asset } from "@wharfkit/antelope";
 
 const ExtendReward = (props) => {
   const {
-    isLoggedIn,
-    setCurrentUsername,
-    setWharfSession,
     wharfSession,
     setShowTxModal,
     setTxModalText,
@@ -38,7 +35,9 @@ const ExtendReward = (props) => {
     balancesAreLoading,
     showTxModal,
     txModalText,
-    txIsLoading
+    txIsLoading,
+    refresh,
+    setRefresh
   } = useStateContext();
 
   const farmName = props.farmName;
@@ -190,8 +189,8 @@ const ExtendReward = (props) => {
             <br />
             <button
               className="stake-button"
-              onClick={() => {
-                extendRewardTransaction(
+              onClick={async () => {
+                await extendRewardTransaction(
                     farmName,
                     rewardToExtend.id,
                     rewardAmount,
@@ -204,6 +203,7 @@ const ExtendReward = (props) => {
                     setTxIsLoading,
                     wharfSession
                 );
+                setRefresh(!refresh);
               }}
             >
               EXTEND REWARD

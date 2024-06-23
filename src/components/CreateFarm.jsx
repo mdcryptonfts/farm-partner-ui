@@ -36,6 +36,8 @@ const CreateFarm = (props) => {
     setShowTxModal,
     setTxModalText,
     setTxIsLoading,
+    refresh,
+    setRefresh
   } = useStateContext();
 
   const farmName = props.farmName;
@@ -313,8 +315,8 @@ const CreateFarm = (props) => {
 
           <button
             className="stake-button"
-            onClick={() => {
-              createFarmTransaction(
+            onClick={async () => {
+              await createFarmTransaction(
                 paymentMethod,
                 farmName,
                 stakingDecimals,
@@ -331,6 +333,7 @@ const CreateFarm = (props) => {
                 setTxIsLoading,
                 wharfSession
               );
+              setRefresh(!refresh);
             }}
           >
             CREATE FARM
