@@ -4,20 +4,30 @@ import { MessageWrapper } from "../Styles";
 import { ClickableP, InputWrapper, SpaceBetweenDiv } from "../data/css/Farms";
 import { handleAssetInput } from "../data/functions/helpers";
 import { logInWithWharfkit } from "../data/wharfkit";
+import { makeAction, submitTransaction } from "../data/functions/transactions";
+import config from "../data/config.json";
+
+const network = config.networks[config.currentNetwork];
 
 const UnstakeTab = (props) => {
   const {
     isLoggedIn,
-    tokenBalances,
-    balancesAreLoading,
     setCurrentUsername,
     setWharfSession,
+    refresh,
+    setRefresh,
+    wharfSession,
+    setShowTxModal,
+    setTxModalText,
+    setTxIsLoading,
   } = useStateContext();
 
   const [amountToUnstake, setAmountToUnstake] = useState("");
 
+  const farm = props.farm;
   const stakeIsLoading = props.stakeIsLoading;
   const stake = props.stake;
+  const precision = props.precision;
   const symName = props.symName;
   const contract = props.contract;
 
@@ -58,8 +68,7 @@ const UnstakeTab = (props) => {
                       setAmountToUnstake(stake[0]?.balance.split(" ")[0]);
                     }}
                   >
-                    Max{" "}
-                    {stake[0]?.balance.split(" ")[0]}
+                    Max {stake[0]?.balance.split(" ")[0]}
                   </ClickableP>
                 </SpaceBetweenDiv>
                 <input
@@ -70,7 +79,35 @@ const UnstakeTab = (props) => {
                   }}
                 />
               </InputWrapper>
-              <button className="stake-button">UNSTAKE NOW</button>
+              <button
+                className="stake-button"
+                onClick={async () => {
+                  await submitTransaction(
+                    [
+                      makeAction(
+                        network.contracts.waxdao,
+                        "unstake",
+                        {
+                          user: wharfSession.actor,
+                          farm_name: farm?.farm_name,
+                          amount: `${Number(amountToUnstake).toFixed(
+                            precision
+                          )} ${symName}`,
+                        },
+                        wharfSession
+                      ),
+                    ],
+                    "Your tokens have been unstaked!",
+                    setShowTxModal,
+                    setTxModalText,
+                    setTxIsLoading,
+                    wharfSession
+                  );
+                  setRefresh(!refresh);
+                }}
+              >
+                UNSTAKE NOW
+              </button>
             </>
           )}
         </>

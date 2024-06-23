@@ -20,7 +20,9 @@ const StakeTab = (props) => {
     tokenBalances,
     balancesAreLoading,
     setCurrentUsername, 
-    setWharfSession
+    setWharfSession,
+    refresh,
+    setRefresh
   } = useStateContext();
 
   const network = props.network;
@@ -106,8 +108,8 @@ const StakeTab = (props) => {
 
             <button
               className="stake-button"
-              onClick={() => {
-                submitTransaction(
+              onClick={async () => {
+                await submitTransaction(
                   [
                     stakeAction(farm?.farm_name, wharfSession),
                     transferAction(
@@ -124,6 +126,7 @@ const StakeTab = (props) => {
                   setTxIsLoading,
                   wharfSession
                 );
+                setRefresh(!refresh);
               }}
             >
               STAKE NOW

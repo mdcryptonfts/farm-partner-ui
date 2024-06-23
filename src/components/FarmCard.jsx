@@ -23,7 +23,7 @@ const FarmCard = (props) => {
   const network = config.networks[config.currentNetwork];
   const tabs = ["Reward Pools", "Stake", "Unstake", "Claim"];
 
-  const { wharfSession, isLoggedIn, refresh, setRefresh } =
+  const { wharfSession, isLoggedIn, refresh } =
     useStateContext();
 
   const index = props.index;
@@ -133,6 +133,8 @@ const FarmCard = (props) => {
 
             {currentFarmTab == "Unstake" && (
               <UnstakeTab
+                farm={farm}
+                precision={precision}
                 stakeIsLoading={stakeIsLoading}
                 stake={stake}
                 symName={symName}
