@@ -29,3 +29,17 @@ Settings are conveniently located in the `/src/data/config.json` file. The secti
 - `spinnerDuration`: The amount of milliseconds that the spinner will spin in the transaction modal before telling a user that their transaction is complete. By default, this is `2000` (2 seconds). You can make this longer or shorter if you desire.
 
 - `networks`: A list of network objects for the different networks that your app supports. By default, WAX Mainnet and WAX Testnet are supported.
+
+The section below covers each of the options in a `network` object.
+
+### network object
+
+- `name`: The name you want to give to your network. For example, `mainnet` or `testnet`. This is also the name that you have to pass to `currentNetwork` in order for the app to work properly.
+
+- `chainId`: The ID of the network you want to configure. You can find a list of network IDs on [chainagnostic.org](https://namespaces.chainagnostic.org/antelope/caip2#test-cases)
+
+- `contracts`: This has 2 fields, `partner` and `waxdao`. The `partner` field is the contract address of your partner contract on that particular network. The `waxdao` contract is the WAX address of the main token farm contract that your partner contract creates farms on.
+
+- `endpoints`: A list of API endpoints for this network. `chain` endpoints is a list of APIs that are used for things like `get_table_rows` calls, and submitting transactions. `lightapi` endpoints are used mainly for fetching a user's token balances. A list of chain api endpoints can be found at [antelope.tools](https://wax.antelope.tools/endpoints). You can switch networks to get a list of endpoints for that network. For light api endpoints, it's a bit more difficult to get a central list, but you can check the [OIG Notion](https://wax-oig.notion.site/b13a262bd3ea480db01b3127535e496b?v=75166b0942ef4d13b752da9635744058) and look through the contributions to see which block producers are offering a light API.
+
+- `urls`: A list of your website URLs for this network. Includes things like documentation links, blockchain explorer links, website URL, etc.
