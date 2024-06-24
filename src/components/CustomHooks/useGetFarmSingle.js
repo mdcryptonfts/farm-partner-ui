@@ -35,7 +35,6 @@ export const useGetFarmSingle = () => {
                 if (res?.data?.rows) {
                     partnerFarm = res.data.rows;
                     setFarmCreator(res.data.rows[0].creator);
-                    console.log(res.data.rows);
                     break;
                 }
             } catch (error) {
@@ -68,7 +67,6 @@ export const useGetFarmSingle = () => {
                             waxdaoFarm = res.data.rows;
                         }
                             
-                        console.log(waxdaoFarm);
                         break;
                     }
                 } catch (error) {

@@ -31,7 +31,6 @@ export const useGetFarmsToManage = () => {
 
                 if (res?.data?.rows) {
                     partnerFarms = res.data.rows;
-                    console.log(res.data.rows);
                     break;
                 }
             } catch (error) {
@@ -67,7 +66,6 @@ export const useGetFarmsToManage = () => {
                         return partnerFarm && partnerFarm.creator == user;
                     });
 
-                    console.log(waxdaoFarms);
                     break;
                 }
             } catch (error) {

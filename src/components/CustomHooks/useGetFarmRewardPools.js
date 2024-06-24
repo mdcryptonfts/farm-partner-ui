@@ -24,7 +24,6 @@ export const useGetFarmRewardPools = () => {
 
                 if (res?.data?.rows) {
                     setPools(res.data.rows);
-                    console.log(res.data.rows);
                     break;
                 }
             } catch (error) {

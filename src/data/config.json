@@ -1,9 +1,9 @@
 {
     "appName": "WaxDAO Farms",
     "buyTokensUrl": "https://wax.alcor.exchange/swap?input=WAX-eosio.token&output=WAXDAO-token.waxdao",
-    "currentNetwork": "testnet",
+    "currentNetwork": "mainnet",
     "localUrl": "http://localhost:3000",
-    "production": false,
+    "production": true,
     "projectToken": {
         "contract": "token.waxdao",
         "symbol": "WAXDAO"

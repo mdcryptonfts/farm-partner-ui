@@ -28,7 +28,6 @@ export const useGetFarmsByPartner = () => {
 
                 if (res?.data?.rows) {
                     setFarms(res.data.rows);
-                    console.log(res.data.rows);
                     break;
                 }
             } catch (error) {

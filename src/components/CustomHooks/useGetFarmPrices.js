@@ -28,7 +28,6 @@ export const useGetFarmPrices = () => {
 
         if (res?.data?.rows?.length > 0) {
           state = res.data.rows[0];
-          console.log(res.data.rows);
           break;
         }
       } catch (error) {
@@ -51,8 +50,6 @@ export const useGetFarmPrices = () => {
           partner: network.contracts.partner,
           payment_tokens: state.accepted_tokens,
         });
-
-        console.log(`Farm prices: ${JSON.stringify(result)}`);
 
         if (state.partner_fee_1e6 > 0) {
           for (const r of result) {
