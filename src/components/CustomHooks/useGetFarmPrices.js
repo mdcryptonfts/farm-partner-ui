@@ -4,13 +4,6 @@ import config from "../../data/config.json";
 import axios from "axios";
 import { useState } from "react";
 
-const HONEY = { sym: "4,HONEY", contract: "nfthivehoney" };
-const LSW = { sym: "8,LSW", contract: "lsw.alcor" };
-const LSWAX = { sym: "8,LSWAX", contract: "token.fusion" };
-const NEFTY = { sym: "8,NEFTY", contract: "token.nefty" };
-const WAX = { sym: "8,WAX", contract: "eosio.token" };
-const WAXDAO = { sym: "8,WAXDAO", contract: "token.waxdao" };
-
 const network = config.networks[config.currentNetwork];
 
 const contractKit = new ContractKit({
