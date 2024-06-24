@@ -4,6 +4,13 @@ import config from "../../data/config.json";
 import axios from "axios";
 import { useState } from "react";
 
+const HONEY = { sym: "4,HONEY", contract: "nfthivehoney" };
+const LSW = { sym: "8,LSW", contract: "lsw.alcor" };
+const LSWAX = { sym: "8,LSWAX", contract: "token.fusion" };
+const NEFTY = { sym: "8,NEFTY", contract: "token.nefty" };
+const WAX = { sym: "8,WAX", contract: "eosio.token" };
+const WAXDAO = { sym: "8,WAXDAO", contract: "token.waxdao" };
+
 const network = config.networks[config.currentNetwork];
 
 const contractKit = new ContractKit({
@@ -43,21 +50,23 @@ export const useGetFarmPrices = () => {
     await getPartnerTokens();
 
     if (state?.accepted_tokens?.length > 0) {
+
       try {
         const contract = await contractKit.load("tf.waxdao");
 
         const result = await contract.readonly("getfarmprice", {
-          partner: network.contracts.partner,
+          partner: "prtnr.waxdao",
           payment_tokens: state.accepted_tokens,
         });
 
         if (state.partner_fee_1e6 > 0) {
           for (const r of result) {
-            let price = Asset.from(r.quantity);
-            let currentUnits = Number(price.units);
-            let fee = (currentUnits * state.partner_fee_1e6) / 1e8;
-            price.units = currentUnits + fee;
-            r.quantity = price;
+            let quantity = Asset.from(r.quantity);
+            let price = Number(String(r.quantity).split(" ")[0]);
+            let precision = Asset.from(r.quantity).symbol.precision;
+            let fee = (price * state.partner_fee_1e6) / 1e8;
+            price = Number(price + fee).toFixed(precision);
+            r.quantity = `${price} ${quantity.symbol.name}`;
           }
         }
 
