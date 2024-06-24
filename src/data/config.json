@@ -37,7 +37,7 @@
             },
             "endpoints": {
                 "chain": [
-                    "https://api.waxdao.io",
+                    "https://api.waxdaobp.io",
                     "https://api.hivebp.io",
                     "https://api.waxsweden.org",
                     "https://api2.hivebp.io",
