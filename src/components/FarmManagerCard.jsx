@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FarmManagerCardWrapper } from "../data/css/FarmCard";
+import { FarmManagerCardWrapper, WideOnly } from "../data/css/FarmCard";
 import { MessageWrapper } from "../Styles";
 import { SpaceBetweenDiv } from "../data/css/Farms";
 import { Asset, ExtendedSymbol } from "@wharfkit/antelope";
@@ -13,20 +13,18 @@ const currentWebsiteURL = config.production
 const FarmManagerCard = (props) => {
   const farm = props.farm;
   const sym = ExtendedSymbol.from(farm?.staking_token).sym;
-  const precision = sym.precision;
   const symName = sym.name;
   const contract = ExtendedSymbol.from(farm?.staking_token).contract;
-  const totalStaked = Asset.fromUnits(
-    Number(farm?.total_staked),
-    Asset.Symbol.from(sym)
-  );
 
   return (
     <FarmManagerCardWrapper>
       <MessageWrapper top={"5px"} height={"40px"}>
         <SpaceBetweenDiv>
-          <span>
-            <b>{farm?.farm_name}</b>&nbsp;by {farm?.creator}
+        <span>
+            <b>{farm?.farm_name}</b>
+            <WideOnly as="span" breakPoint={"470px"}>
+            &nbsp;by {farm?.creator}
+            </WideOnly>
           </span>
           <span>
             Stake <b>{symName}</b>

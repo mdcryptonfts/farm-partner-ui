@@ -7,6 +7,7 @@ import {
   submitTransaction,
 } from "../data/functions/transactions";
 import { logInWithWharfkit } from "../data/wharfkit";
+import { WideOnly } from "../data/css/FarmCard";
 
 const ClaimTab = (props) => {
   const {
@@ -40,7 +41,9 @@ const ClaimTab = (props) => {
               <MessageWrapper key={index} top={"5px"} height={"40px"}>
               <SpaceBetweenDiv>
                 <p>
-                  You have <b>{String(item.quantity)}</b> to claim!
+                  <WideOnly as="span" breakPoint={"470px"}>You have{" "}</WideOnly>
+                  <b>{String(item.quantity)}</b>
+                  <WideOnly as="span" breakPoint={"470px"}>{" "}to claim!</WideOnly>
                 </p>
               </SpaceBetweenDiv>
               </MessageWrapper>

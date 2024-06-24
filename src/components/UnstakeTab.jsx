@@ -62,12 +62,11 @@ const UnstakeTab = (props) => {
 
       {isLoggedIn && !stakeIsLoading && stake?.length != 0 && (
         <>
-          <br />
+
           {Date.now() / 1000 < stake[0]?.vesting_end_time ? (
             <MessageWrapper>
               <span>
-                You have <b>{stake[0]?.balance}</b> staked in this farm, but
-                your unlock period is not until{" "}
+                Your <b>{stake[0]?.balance}</b> unlocks at{" "}
                 <b>
                   {new Date(stake[0]?.vesting_end_time * 1000).toLocaleString()}
                 </b>
@@ -75,7 +74,7 @@ const UnstakeTab = (props) => {
             </MessageWrapper>
           ) : (
             <>
-              {" "}
+              <br/>
               <InputWrapper wide={true}>
                 <SpaceBetweenDiv>
                   <p>Amount To Unstake</p>

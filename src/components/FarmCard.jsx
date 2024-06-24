@@ -3,6 +3,7 @@ import {
   FarmCardWrapper,
   FarmDetailsWrapper,
   ShowDetailsButton,
+  WideOnly,
 } from "../data/css/FarmCard";
 import { MessageWrapper } from "../Styles";
 import { SpaceBetweenDiv } from "../data/css/Farms";
@@ -100,7 +101,10 @@ const FarmCard = (props) => {
       <MessageWrapper top={"5px"} height={"40px"}>
         <SpaceBetweenDiv>
           <span>
-            <b>{farm?.farm_name}</b>&nbsp;by {farm?.creator}
+            <b>{farm?.farm_name}</b>
+            <WideOnly as="span" breakPoint={"470px"}>
+            &nbsp;by {farm?.creator}
+            </WideOnly>
           </span>
           <span>
             Stake <b>{symName}</b>
@@ -154,8 +158,8 @@ const FarmCard = (props) => {
           <>
             <MessageWrapper top={"5px"} height={"40px"}>
               <SpaceBetweenDiv>
-                <p>Total staked in farm</p>
-                <p>{String(totalStaked)}</p>
+                <p>{String(totalStaked).split(" ")[1]} in farm</p>
+                <p>{String(totalStaked).split(" ")[0]}</p>
               </SpaceBetweenDiv>
             </MessageWrapper>
 

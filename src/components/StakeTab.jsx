@@ -78,21 +78,20 @@ const StakeTab = (props) => {
           balancesAreLoading
         ) != 0 && (
           <>
-            <br />
-            {farm?.vesting_time > 0 && (
+            {farm?.vesting_time > 0 ? (
               <>
                 <MessageWrapper>
                   <span>
-                    Please note that the farm creator has set a vesting time of{" "}
+                    The farm creator has set a vesting time of{" "}
                     <b>{Number(farm.vesting_time / 86400).toFixed(2)} days</b>{" "}
-                    for this farm. This means that any time you stake new
-                    tokens, you will not be able to unstake anything until that
-                    much time has passed.
+                    for this farm. Any time you stake new
+                    tokens, you will have to wait {Number(farm.vesting_time / 86400).toFixed(2)} days 
+                    before unstaking.
                   </span>
                 </MessageWrapper>
-                <br />
               </>
-            )}
+            ) : <br/>}
+            <br />
             <InputWrapper wide={true}>
               <SpaceBetweenDiv>
                 <p>Amount To Stake</p>

@@ -92,3 +92,9 @@ export const ShowDetailsButton = styled.button`
     background-color: rgba(0, 0, 0, 0.03);
   }
 `;
+
+export const WideOnly = styled.div`
+  @media(max-width: ${props => props.breakPoint}) {
+    display: none;
+  }
+`;
