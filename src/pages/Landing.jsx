@@ -6,7 +6,7 @@ import {
   FeaturesWrapper,
   MainSection,
 } from "../data/css/LandingPage";
-import { code_svg, coins_svg, efficient_svg, github_svg, handshake_svg, sale_svg, unlocked_svg } from "../data/svgs";
+import { code_svg, coins_svg, efficient_svg, handshake_svg, sale_svg, unlocked_svg } from "../data/svgs";
 
 const network = config.networks[config.currentNetwork];
 const currentWebsiteURL = config.production

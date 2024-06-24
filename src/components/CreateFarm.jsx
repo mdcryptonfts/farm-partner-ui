@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ClickableP,
   InputWrapper,
@@ -66,6 +66,33 @@ const CreateFarm = (props) => {
   const setPaymentMethod = props.setPaymentMethod;
   const pricesAreLoading = props.pricesAreLoading;
   const prices = props.prices;
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+  
+    if(isMounted){
+      if(Object.keys(paymentMethod).length == 0
+      || farmName.length == 0
+      || stakingDecimals == ""
+      || stakingSymbol == ""
+      || stakingContract == ""
+      || vestingDays == ""
+      || rewardAmount == ""
+      || rewardPeriod == ""
+      || selectedToken?.contract == ""){
+        setIsButtonDisabled(true);
+      } else {
+        setIsButtonDisabled(false);
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    }
+  }, [paymentMethod, farmName, stakingDecimals, stakingSymbol, stakingContract, vestingDays, rewardAmount, rewardPeriod, selectedToken])
+  
 
   return (
     <StakeContainer>
@@ -290,6 +317,10 @@ const CreateFarm = (props) => {
             </SpaceBetweenDiv>
 
             {/* React was buggy with rendering, so needed to stringify/parse for it to work */}
+            {/* TODO: Prices may become invalidated after TWAP is refreshed, this needs
+                to be refactored to not include the price (only token/contract should be part
+                of the key)
+            */}
             <select
               onChange={(e) => {
                 setPaymentMethod(JSON.parse(e.target.value));
@@ -315,6 +346,7 @@ const CreateFarm = (props) => {
 
           <button
             className="stake-button"
+            disabled={isButtonDisabled}
             onClick={async () => {
               await createFarmTransaction(
                 paymentMethod,
@@ -336,7 +368,7 @@ const CreateFarm = (props) => {
               setRefresh(!refresh);
             }}
           >
-            CREATE FARM
+            {isButtonDisabled ? "MISSING DETAILS" : "CREATE FARM"}
           </button>
         </>
       )}

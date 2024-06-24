@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ClickableP,
   InputWrapper,
@@ -57,6 +57,25 @@ const ExtendReward = (props) => {
   const [startNow, setStartNow] = useState(true);
   const [startTime, setStartTime] = useState(Date.now() / 1000);
   const [rewardPeriod, setRewardPeriod] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+  
+    if(isMounted){
+      if(rewardAmount == "" || rewardPeriod == ""){
+        setIsButtonDisabled(true);
+      } else {
+        setIsButtonDisabled(false);
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    }
+  }, [rewardAmount, rewardPeriod])
+  
+
 
   return (
     <>
@@ -189,6 +208,7 @@ const ExtendReward = (props) => {
             <br />
             <button
               className="stake-button"
+              disabled={isButtonDisabled}
               onClick={async () => {
                 await extendRewardTransaction(
                     farmName,
@@ -206,7 +226,7 @@ const ExtendReward = (props) => {
                 setRefresh(!refresh);
               }}
             >
-              EXTEND REWARD
+              {isButtonDisabled ? "MISSING DETAILS" : "EXTEND REWARD"}
             </button>
           </>
       </StakeContainer>

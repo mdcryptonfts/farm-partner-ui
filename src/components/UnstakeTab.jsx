@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/ContextProvider";
 import { MessageWrapper } from "../Styles";
 import { ClickableP, InputWrapper, SpaceBetweenDiv } from "../data/css/Farms";
@@ -22,14 +22,30 @@ const UnstakeTab = (props) => {
     setTxIsLoading,
   } = useStateContext();
 
-  const [amountToUnstake, setAmountToUnstake] = useState("");
-
   const farm = props.farm;
   const stakeIsLoading = props.stakeIsLoading;
   const stake = props.stake;
   const precision = props.precision;
   const symName = props.symName;
-  const contract = props.contract;
+
+  const [amountToUnstake, setAmountToUnstake] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+  
+    if(isMounted){
+      if(amountToUnstake == "" || parseFloat(amountToUnstake) == 0){
+        setIsButtonDisabled(true);
+      } else {
+        setIsButtonDisabled(false);
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    }
+  }, [amountToUnstake])  
 
   return (
     <>
@@ -81,6 +97,7 @@ const UnstakeTab = (props) => {
               </InputWrapper>
               <button
                 className="stake-button"
+                disabled={isButtonDisabled}
                 onClick={async () => {
                   await submitTransaction(
                     [
@@ -106,7 +123,7 @@ const UnstakeTab = (props) => {
                   setRefresh(!refresh);
                 }}
               >
-                UNSTAKE NOW
+                {isButtonDisabled ? "ENTER AMOUNT" : "UNSTAKE NOW"}
               </button>
             </>
           )}

@@ -30,7 +30,8 @@ export const calculateOuterHeight = (
   claimsAreLoading = true,
   stake,
   stakeIsLoading = true,
-  farm
+  farm,
+  balanceToStake = 0
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
     if (poolsAreLoading) return `${0 + originalheight}px`;
@@ -71,8 +72,12 @@ export const calculateOuterHeight = (
     return `${originalheight + 280}px`;
   }
 
-  if (location == "Stake" && farm?.vesting_time == 0) {
+  if (location == "Stake") {
+    if(farm?.vesting_time == 0 && balanceToStake != 0){
       return `${noPoolsHeight + originalheight + 100}px`;
+    } else if(balanceToStake == 0){
+      return `${originalheight + 180}px`;
+    }
   }
 
   return `${noPoolsHeight + originalheight + 200}px`;
@@ -89,7 +94,8 @@ export const calculateInnerHeight = (
   claimsAreLoading = true,
   stake,
   stakeIsLoading = true,
-  farm
+  farm,
+  balanceToStake = 0
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
     if (poolsAreLoading) return `${0 + originalheight}px`;
@@ -130,9 +136,13 @@ export const calculateInnerHeight = (
     return `${originalheight + 280}px`;
   }
 
-  if (location == "Stake" && farm?.vesting_time == 0) {
-    return `${noPoolsHeight + originalheight + 100}px`;
-}
+  if (location == "Stake") {
+    if(farm?.vesting_time == 0 && balanceToStake != 0){
+      return `${noPoolsHeight + originalheight + 100}px`;
+    } else if(balanceToStake == 0){
+      return `${originalheight + 180}px`;
+    }
+  }
 
   return `${noPoolsHeight + originalheight + 200}px`;
 };

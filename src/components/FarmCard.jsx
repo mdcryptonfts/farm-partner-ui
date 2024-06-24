@@ -9,7 +9,11 @@ import { SpaceBetweenDiv } from "../data/css/Farms";
 import { Asset, ExtendedSymbol } from "@wharfkit/antelope";
 import Folders from "./Folders";
 import { useGetFarmRewardPools } from "./CustomHooks/useGetFarmRewardPools";
-import { calculateInnerHeight, calculateOuterHeight } from "../data/functions/helpers";
+import {
+  calculateInnerHeight,
+  calculateOuterHeight,
+  showBalance,
+} from "../data/functions/helpers";
 import { useStateContext } from "../contexts/ContextProvider";
 import { useGetUserStake } from "./CustomHooks/useGetUserStake";
 import config from "../data/config.json";
@@ -23,8 +27,13 @@ const FarmCard = (props) => {
   const network = config.networks[config.currentNetwork];
   const tabs = ["Reward Pools", "Stake", "Unstake", "Claim"];
 
-  const { wharfSession, isLoggedIn, refresh } =
-    useStateContext();
+  const {
+    wharfSession,
+    isLoggedIn,
+    refresh,
+    tokenBalances,
+    balancesAreLoading,
+  } = useStateContext();
 
   const index = props.index;
   const farm = props.farm;
@@ -53,10 +62,10 @@ const FarmCard = (props) => {
         getPools(farm?.farm_name);
       } else if (currentFarmTab == "Unstake" && isLoggedIn) {
         getStake(farm?.farm_name, wharfSession.actor);
-      } else if(currentFarmTab == "Claim"){
+      } else if (currentFarmTab == "Claim") {
         if (isLoggedIn) {
           getBalances(wharfSession.actor, farm?.farm_name);
-        }        
+        }
       }
     }
 
@@ -66,8 +75,28 @@ const FarmCard = (props) => {
   }, [currentIndex, currentFarmTab, refresh]);
 
   return (
-    <FarmCardWrapper height={calculateOuterHeight(pools, poolsAreLoading, 215, 100, 200, currentFarmTab, balances, claimsAreLoading,   stake,
-      stakeIsLoading, farm)} show={currentIndex == index} farmTab={currentFarmTab}>
+    <FarmCardWrapper
+      height={calculateOuterHeight(
+        pools,
+        poolsAreLoading,
+        215,
+        100,
+        200,
+        currentFarmTab,
+        balances,
+        claimsAreLoading,
+        stake,
+        stakeIsLoading,
+        farm,
+        showBalance(
+          { currency: symName, contract: contract },
+          tokenBalances,
+          balancesAreLoading
+        )
+      )}
+      show={currentIndex == index}
+      farmTab={currentFarmTab}
+    >
       <MessageWrapper top={"5px"} height={"40px"}>
         <SpaceBetweenDiv>
           <span>
@@ -99,8 +128,28 @@ const FarmCard = (props) => {
         {currentIndex == index ? "Hide Details" : "Show Details"}
       </ShowDetailsButton>
 
-      <FarmDetailsWrapper height={calculateInnerHeight(pools, poolsAreLoading, 115, 0, 200, currentFarmTab, balances, claimsAreLoading,   stake,
-  stakeIsLoading, farm)} show={currentIndex == index} farmTab={currentFarmTab}>
+      <FarmDetailsWrapper
+        height={calculateInnerHeight(
+          pools,
+          poolsAreLoading,
+          115,
+          0,
+          200,
+          currentFarmTab,
+          balances,
+          claimsAreLoading,
+          stake,
+          stakeIsLoading,
+          farm,
+          showBalance(
+            { currency: symName, contract: contract },
+            tokenBalances,
+            balancesAreLoading
+          )
+        )}
+        show={currentIndex == index}
+        farmTab={currentFarmTab}
+      >
         {currentIndex == index && (
           <>
             <MessageWrapper top={"5px"} height={"40px"}>
@@ -143,7 +192,11 @@ const FarmCard = (props) => {
             )}
 
             {currentFarmTab == "Claim" && (
-                <ClaimTab farm={farm} balances={balances} balancesAreLoading={claimsAreLoading} />
+              <ClaimTab
+                farm={farm}
+                balances={balances}
+                balancesAreLoading={claimsAreLoading}
+              />
             )}
           </>
         )}

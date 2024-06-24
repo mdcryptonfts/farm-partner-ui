@@ -40,6 +40,26 @@ export const Body = styled.div`
     background-color: ${config.theme.background};
 `
 
+export const CheckboxContainer = styled.div`
+
+  font-size: 14px;
+
+  img{
+    width: 20px;
+    height: 20px;
+  }
+
+  div{
+    width: 20px;
+    height: 20px;
+    border: 1px solid ${config.theme.darkBlue};
+    border-radius: 3px;
+  }
+
+  :hover{
+    cursor: pointer;
+  }
+`;
 
 export const CloseModalButton = styled.button`
   width: 200px;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MessageWrapper } from "../Styles";
 import { handleAssetInput, showBalance } from "../data/functions/helpers";
 import { ClickableP, InputWrapper, SpaceBetweenDiv } from "../data/css/Farms";
@@ -32,6 +32,24 @@ const StakeTab = (props) => {
   const precision = props.precision;
 
   const [amountToStake, setAmountToStake] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+  
+    if(isMounted){
+      if(amountToStake == "" || parseFloat(amountToStake) == 0){
+        setIsButtonDisabled(true);
+      } else {
+        setIsButtonDisabled(false);
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    }
+  }, [amountToStake])
+  
 
   return (
     <>
@@ -108,6 +126,7 @@ const StakeTab = (props) => {
 
             <button
               className="stake-button"
+              disabled={isButtonDisabled}
               onClick={async () => {
                 await submitTransaction(
                   [
@@ -129,7 +148,7 @@ const StakeTab = (props) => {
                 setRefresh(!refresh);
               }}
             >
-              STAKE NOW
+              {isButtonDisabled ? "ENTER AMOUNT" : "STAKE NOW"}
             </button>
           </>
         )}

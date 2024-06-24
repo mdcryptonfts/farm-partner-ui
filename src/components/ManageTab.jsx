@@ -7,14 +7,7 @@ import FarmManagerCard from "./FarmManagerCard";
 const ManageTab = () => {
   const {
     wharfSession,
-    setShowTxModal,
-    setTxModalText,
-    setTxIsLoading,
     isLoggedIn,
-    tokenBalances,
-    balancesAreLoading,
-    setCurrentUsername,
-    setWharfSession,
   } = useStateContext();
 
   const [farms, getFarms, farmsAreLoading] = useGetFarmsToManage();
