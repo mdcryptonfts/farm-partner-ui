@@ -13,6 +13,7 @@ import { useGetFarmRewardPools } from "./CustomHooks/useGetFarmRewardPools";
 import {
   calculateInnerHeight,
   calculateOuterHeight,
+  roundDownAndFormat,
   showBalance,
 } from "../data/functions/helpers";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -159,7 +160,7 @@ const FarmCard = (props) => {
             <MessageWrapper top={"5px"} height={"40px"}>
               <SpaceBetweenDiv>
                 <p>{String(totalStaked).split(" ")[1]} in farm</p>
-                <p>{String(totalStaked).split(" ")[0]}</p>
+                <p>{roundDownAndFormat(String(totalStaked).split(" ")[0])}</p>
               </SpaceBetweenDiv>
             </MessageWrapper>
 

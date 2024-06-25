@@ -78,29 +78,41 @@
             }
         }        
     },
-    "theme": {
-        "primary": "#8068ab",
-        "textMain": "white",
-        "offWhite": "#ebebeb",
-        "textSecondary": "#BCBCBC",
-        "textSecondaryDarker": "#9C9999",
-        "secondaryLight": "#2e2d2d",
-        "secondaryMedium": "#262525",
-        "secondaryDark": "#1c1c1b",
-        "secondaryDarker": "#161616",
-        "darkGrey": "#343a40",
-        "hoverColor": "rgba(99, 99, 99, 0.3)",
-        "backgroundDark": "#0c0d0d",
-        "secondary": "#D91E75",
-        "danger": "#dc3545",
-        "caution": "#ffc107",
-        "cautionOrange": "#c2810a",
-        "success": "#28a745",
-        "background": "#eef5ef",
-        "darkBlue": "#03273c",
-        "lighterBlue": "#1c4157",
-        "gray": "#838181",
-        "offWhiteDarker": "#d4dcd5",
-        "offWhiteDarkest": "#b9bdb9"  
+    "theme":{
+
+    },
+    "themes": {
+        "light":{
+            "primary": "#03273c",
+            "onPrimary": "white",
+            "secondary": "#ebebeb",
+            "secondaryAccent": "#d4dcd5",
+            "secondaryDarker": "#9C9999",
+            "surface": "#eef5ef",
+            "onSurface": "#343a40",
+            "background": "#eef5ef",
+            "onBackground": "white",
+            "modalBackground": "#1c1c1b",
+            "onModal": "#ebebeb",
+            "danger": "#dc3545",
+            "success": "#28a745",
+            "customGradient": "radial-gradient(circle, rgba(156,207,225,1) 0%, rgba(116,178,209,1) 58%)"
+        },
+        "dark":{
+            "primary": "#8068ab",
+            "onPrimary": "white",
+            "secondary": "#2c2c2c",
+            "secondaryAccent": "#3a3a3a",
+            "secondaryDarker": "#5a5a5a",
+            "surface": "#212121",
+            "onSurface": "#f5f5f5",
+            "background": "#1e1e1e",
+            "onBackground": "#e0e0e0",
+            "modalBackground": "#171717",
+            "onModal": "#eef5ef",
+            "danger": "#dc3545",
+            "success": "#28a745",
+            "customGradient": "radial-gradient(circle, rgba(60,60,60,1) 0%, rgba(20,20,20,1) 58%)"
+        }
     }
 }

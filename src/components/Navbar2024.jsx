@@ -40,6 +40,7 @@ import LoadingDiv from "./LoadingDiv";
 import WaxAccount from "./WaxAccount";
 import { getSocialLogo, showMyBalances } from "../data/functions/helpers";
 import DropDownLarge from "./DropDownLarge";
+import { useTheme } from "../contexts/ThemeContext";
 
 const network = config.networks[config.currentNetwork];
 const currentWebsiteURL = config.production
@@ -63,6 +64,7 @@ const Navbar2024 = () => {
     priceIsLoading
   } = useStateContext();
 
+  const { theme } = useTheme();
   const [sessions, setSessions] = useState([]);
   const [selectedTab, setSelectedTab] = useState("");
   const [showUserDropDown, setShowUserDropDown] = useState(false);
@@ -249,7 +251,7 @@ const Navbar2024 = () => {
             <span>
               <UserDropDownBalancesCont>
                 <h3>MY BALANCES</h3>
-                {showMyBalances(tokenBalances, balancesAreLoading)}
+                {showMyBalances(tokenBalances, balancesAreLoading, theme)}
                 <a href={config.buyTokensUrl} target="none">
                   <UserDropDownBuyWaxDaoButton>
                     BUY {config.projectToken.symbol}

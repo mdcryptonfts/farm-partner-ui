@@ -26,16 +26,17 @@ const ManageTab = () => {
 
   return (
     <>
-      {farmsAreLoading && <MessageWrapper>Farms are loading...</MessageWrapper>}
+      {!isLoggedIn && <MessageWrapper>You need to log in to manage your farms.</MessageWrapper>}
+      {isLoggedIn && farmsAreLoading && <MessageWrapper>Farms are loading...</MessageWrapper>}
 
-      {!farmsAreLoading && farms?.length == 0 && (
+      {isLoggedIn && !farmsAreLoading && farms?.length == 0 && (
         <MessageWrapper>
           No farms were located. Either you haven't created any, or there's been
           an API issue which can be solved by refreshing the page.
         </MessageWrapper>
       )}
 
-      {!farmsAreLoading && farms?.length > 0 && farms.map((item, index) => (
+      {isLoggedIn && !farmsAreLoading && farms?.length > 0 && farms.map((item, index) => (
         <FarmManagerCard key={index} farm={item} />
       ))}
     </>

@@ -14,7 +14,7 @@ export const NotFoundWrapper = styled.div`
     font-size: 124px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     text-align: center;
   }
 
@@ -36,7 +36,7 @@ export const NotFoundWrapper = styled.div`
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.4px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     text-align: center;
     margin-top: 10px;
   }
@@ -49,9 +49,10 @@ export const NotFoundWrapper = styled.div`
     max-width: 90%;
     color: white;
     height: 40px;
-    background-color: ${config.theme.darkBlue};
+    background-color: ${props => props.theme.primary};
     border-radius: 10px;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;

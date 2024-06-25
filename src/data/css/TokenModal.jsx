@@ -5,7 +5,7 @@ export const ModalContent = styled.div`
   color: white;
   font-size: 14px;
   a {
-    color: ${config.theme.secondary};
+    color: ${props => props.theme.primary};
   }
 `;
 
@@ -23,7 +23,7 @@ export const SelectTokenModalWrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  background-color: #1c1c1b;
+  background-color: ${props => props.theme.modalBackground};
   text-align: center;
 
   @media (max-width: 480px) {
@@ -36,19 +36,17 @@ export const SelectTokenHeaderCont = styled.div`
   justify-content: space-between;
   width: 100%;
   font-size: 20px;
-  color: ${config.theme.textMain};
+  color: ${props => props.theme.onPrimary};
   font-weight: 400;
   padding: 10px;
   text-align: left;
   margin-bottom: 15px;
-  //border-bottom: 1px solid ${config.theme.textSecondary};
 `;
 
 export const SelectTokenRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  //border-bottom: 1px solid ${config.theme.textSecondary};
   font-size: 18px;
 
   img {
@@ -59,9 +57,7 @@ export const SelectTokenRow = styled.div`
   button {
     display: inherit;
     flex-wrap: wrap;
-    //flex-direction: column;
     align-items: center;
-    //justify-content: space-between;
     padding: 12px;
     width: 100%;
     :hover {
@@ -77,7 +73,7 @@ export const SelectTokenRowTokenName = styled.div`
   //border: 1px solid green;
 
   span {
-    color: ${config.theme.textSecondary};
+    color: ${props => props.theme.secondaryDarker};
     font-size: 12px;
     font-weight: 400;
   }
@@ -88,13 +84,10 @@ export const SelectTokenRowTokenName = styled.div`
 `;
 
 export const SelectTokenRowTokenAmount = styled.div`
-  //width: 100%;
   flex-grow: 1;
   text-align: right;
-  //border: 1px solid white;
   font-size: 18px;
-  color: ${config.theme.textSecondary};
-  //border: 1px solid green;
+  color: ${props => props.theme.onModal};
 
   @media (max-width: 480px) {
     font-size: 14px;
@@ -115,14 +108,14 @@ export const SelectTokenModalInnerWrapper = styled.div`
 
   -ms-overflow-style: scrollbar; /* IE and Edge */
   scrollbar-width: thin;
-  scrollbar-color: ${config.theme.textSecondaryDarker} black;
+  scrollbar-color: ${props => props.theme.secondary} black;
 
   ::-webkit-scrollbar {
     height: 4px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${config.theme.textSecondaryDarker};
+    background: ${props => props.theme.secondary};
   }
 
   ::-webkit-scrollbar-track {
@@ -130,6 +123,6 @@ export const SelectTokenModalInnerWrapper = styled.div`
   }
 
   a {
-    color: ${config.theme.primary};
+    color: ${props => props.theme.primary};
   }
 `;

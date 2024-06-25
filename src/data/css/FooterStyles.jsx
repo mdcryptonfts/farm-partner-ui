@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import config from "../config.json";
 
 export const FooterCont = styled.div`
   display: flex;
@@ -8,25 +7,8 @@ export const FooterCont = styled.div`
   max-height: auto;
   margin-left: 0px;
   margin-right: 0px;
-  //background-color: ${config.theme.backgroundDark};
-  background: rgb(156, 207, 225);
-  background: -moz-radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  background: -webkit-radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  background: radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9ccfe1",endColorstr="#74b2d1",GradientType=1);
-  box-shadow: 0px 0px 2px 0.5px ${config.theme.textSecondary};
+  background: ${props => props.theme.customGradient};
+  box-shadow: 0px 0px 2px 0.5px ${props => props.theme.secondary};
   flex-wrap: wrap;
 
   padding-bottom: 1em;
@@ -36,7 +18,7 @@ export const FooterCont = styled.div`
 
   a {
     :hover {
-      color: ${config.theme.darkBlue};
+      color: ${props => props.theme.primary};
     }
   }
 
@@ -93,7 +75,7 @@ export const ColumnTitle = styled.div`
   max-width: 100%;
   font-size: 18px;
   font-weight: bold;
-  color: ${config.theme.darkBlue};
+  color: ${props => props.theme.primary};
   padding-top: 2em;
   letter-spacing: 0.7px;
 `;
@@ -129,7 +111,7 @@ export const FooterBrandText = styled.div`
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.8px;
-  color: ${config.theme.darkBlue};
+  color: ${props => props.theme.primary};
 `;
 
 export const FooterWaxDAOText = styled.div`
@@ -147,17 +129,56 @@ export const SocialIconsDiv = styled.div`
     display: flex;
     justify-content: right;
     gap: 20px;
-    color: ${config.theme.primary};
+    color: ${props => props.theme.onBackground};
 
     svg{
-        fill: ${config.theme.darkBlue};
+        fill: ${props => props.theme.primary};
         width: 20px;
         height: 20px;
         transition: fill 0.3s;
 
         :hover{
-            fill: ${config.theme.textMain}
+            fill: ${props => props.theme.onBackground}
             cursor: pointer;
         }
     }
+`;
+
+
+export const Slider = styled.div`
+  width: 50px;
+  height: 25px;
+  background-color: ${(props) => (props.theme.surface)};
+  border-radius: 30px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+
+  svg{
+    position: absolute;
+    fill: ${props => props.theme.onSurface};
+    width: 20px;
+    height: 25px;
+    top: 0px;
+    left: ${props => props.toggled ? "5px" : "25px"};
+    opacity: ${props => props.toggled && "50%"};
+
+    :hover{
+        fill: ${props => props.theme.onSurface};
+    }     
+  }
+`;
+
+export const SliderCircle = styled.div`
+  width: 21px;
+  height: 21px;
+  background-color: ${props => props.theme.primary};
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.5s ease;
+  left: ${(props) => (props.toggled ? 'calc(100% - 10px)' : '10px')};
+ 
 `;

@@ -24,31 +24,6 @@ export const MobileSidebar = styled.div`
   }
 `;
 
-export const LargeScreenNavDropDown = styled.div`
-  z-index: 15001;
-  position: fixed;
-  right: ${(props) => (props.isOpen == false ? "-190vw" : "30px")};
-  top: ${(props) => (props.isOpen == false ? "-180vh" : "90px")};
-  height: 80vh;
-  width: 290px;
-  background-color: ${config.theme.secondaryDark};
-  border-radius: 10px;
-  box-shadow: -2px 2px 4px 0px ${config.theme.primary};
-  transition: top 0.5s;
-
-  @media (max-width: 900px) {
-    display: none;
-  }
-
-  select {
-    background-color: ${config.theme.secondaryMedium};
-    border-radius: 3px;
-    :focus {
-      outline: none;
-    }
-  }
-`;
-
 export const SidebarOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -59,9 +34,6 @@ export const SidebarOverlay = styled.div`
   height: 100vh;
   background-color: #1c1c1c;
   opacity: 80%;
-  @media (min-width: 901px) {
-    //display: none;
-  }
 `;
 
 export const SidebarLinksGap = styled.div`
@@ -80,7 +52,6 @@ export const CloseSidebarButton = styled.button`
 `;
 
 export const SidebarLinkContainer = styled.button`
-  //display: inline-block;
   padding-left: 35px;
   vertical-align: middle;
   width: 100%;
@@ -107,7 +78,6 @@ export const SidebarScrollWrapper = styled.div`
 `;
 
 export const WaxAccountButton = styled.button`
-  //padding-left: 35px;
   vertical-align: middle;
   width: 100%;
   max-width: 400px;
@@ -127,10 +97,10 @@ export const WaxAccountInnerCont = styled.button`
   font-size: 12px;
   text-align: left;
   padding: 0.5em;
-  background-color: ${config.theme.offWhite};
-  border: 1px solid ${config.theme.offWhiteDarker};
+  background-color: ${props => props.theme.secondary};
+  border: 1px solid ${props => props.theme.secondaryAccent};
   border-radius: 7px;
-  color: ${config.theme.darkBlue};
+  color: ${props => props.theme.primary};
   cursor: default;
   height: 40px;
 

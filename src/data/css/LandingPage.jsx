@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import config from "../config.json";
 
 export const MainSection = styled.div`
   width: 100%;
@@ -11,11 +10,12 @@ export const MainSection = styled.div`
 
   h2 {
     width: 100%;
+    max-width: 700px;
     padding: 0px 15px 0px 15px;
     font-size: 72px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     text-align: center;
   }
 
@@ -37,7 +37,7 @@ export const MainSection = styled.div`
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.4px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     text-align: center;
     margin-top: 10px;
   }
@@ -48,14 +48,15 @@ export const MainSection = styled.div`
     justify-content: center;
     width: 200px;
     max-width: 90%;
-    color: white;
+    color: ${props => props.theme.onPrimary};
     height: 40px;
-    background-color: ${config.theme.darkBlue};
+    background-color: ${props => props.theme.primary};
     border-radius: 10px;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   @media (max-width: 680px) {
@@ -78,33 +79,18 @@ export const FeaturesWrapper = styled.div`
   gap: 25px;
   padding: 25px;
   padding-top: 40px;
-  background: rgb(156, 207, 225);
-  background: -moz-radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  background: -webkit-radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  background: radial-gradient(
-    circle,
-    rgba(156, 207, 225, 1) 0%,
-    rgba(116, 178, 209, 1) 58%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9ccfe1",endColorstr="#74b2d1",GradientType=1);
+  background: ${props => props.theme.customGradient};
 
   h2 {
     width: 100%;
     font-weight: 600;
     font-size: 24px;
     text-align: center;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
   }
 
   p {
+    color: ${props => props.theme.onBackground};
     width: 100%;
     text-align: center;
     letter-spacing: 0.7px;
@@ -115,7 +101,7 @@ export const FeaturesWrapper = styled.div`
 export const FeatureCard = styled.div`
   width: 400px;
   height: 220px;
-  background-color: ${config.theme.background};
+  background-color: ${props => props.theme.surface};
   border-radius: 15px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -127,7 +113,7 @@ export const FeatureCard = styled.div`
     text-align: center;
     font-weight: 600;
     font-size: 18px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
   }
 
   p {
@@ -136,7 +122,7 @@ export const FeatureCard = styled.div`
     width: 100%;
     text-align: center;
     font-size: 12px;
-    color: ${config.theme.darkGrey};
+    color: ${props => props.theme.onSurface};
     padding: 0px 10px 0px 10px;
 
     @media (max-width: 450px) {
@@ -151,13 +137,13 @@ export const FeatureCard = styled.div`
     left: 5%;
     color: white;
     height: 60px;
-    background-color: ${config.theme.darkBlue};
+    background-color: ${props => props.theme.primary};
     border-radius: 7px;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
   }
 
   svg {
-    fill: ${props => props.fill ? props.fill : config.theme.darkGrey};
+    fill: ${props => props.fill && props.fill};
     stroke: ${props => props.stroke && props.stroke};
     width: 50px;
     height: 50px;

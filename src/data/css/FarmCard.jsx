@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import config from "../config.json";
 
 export const FarmCardWrapper = styled.div`
   position: relative;
@@ -10,18 +9,17 @@ export const FarmCardWrapper = styled.div`
   margin-right: auto;
   text-align: left;
   font-size: 14px;
-  //font-weight: 500;
-  background-color: white;
-  color: ${config.theme.darkGrey};
+  background-color: ${props => props.theme.surface};
+  color: ${props => props.theme.onSurface};
   padding: 10px;
   margin-top: 25px;
   border-radius: 10px;
-  border: 1px solid ${config.theme.offWhiteDarker};
+  border: 1px solid ${props => props.theme.secondaryAccent};
   transition: height 0.3s;
 `;
 
 export const FarmDetailsWrapper = styled.div`
-  background-color: white;
+  background-color: ${props => props.theme.surface};
   text-align: center;
   border-radius: 15px;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
@@ -44,13 +42,12 @@ export const FarmManagerCardWrapper = styled.div`
   margin-right: auto;
   text-align: left;
   font-size: 14px;
-  //font-weight: 500;
-  background-color: white;
-  color: ${config.theme.darkGrey};
+  background-color: ${props => props.theme.surface};
+  color: ${props => props.theme.onSurface};
   padding: 10px;
   margin-top: 25px;
   border-radius: 10px;
-  border: 1px solid ${config.theme.offWhiteDarker};
+  border: 1px solid ${props => props.theme.secondaryAccent};
   transition: height 0.3s;
 `;
 
@@ -60,16 +57,16 @@ export const RewardPoolWrapper = styled.div`
   margin-right: auto;
   text-align: left;
   font-size: 12px;
-  background-color: ${config.theme.offWhite};
-  color: ${config.theme.darkGrey};
+  background-color: ${props => props.theme.secondary};
+  color: ${props => props.theme.onSurface};
   padding: 10px;
   height: ${(props) => props.height && props.height};
   margin-top: ${(props) => (props.top ? props.top : "25px")};
   border-radius: 10px;
-  border: 1px solid ${config.theme.offWhiteDarker};
+  border: 1px solid ${props => props.theme.secondaryAccent};
 
   a {
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     font-weight: 600;
   }
 `;
@@ -86,8 +83,8 @@ export const ShowDetailsButton = styled.button`
     background-color 0.15s;
 
   :hover {
-    color: ${config.theme.darkBlue};
-    border: 1px solid ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
+    border: 1px solid ${props => props.theme.primary};
     letter-spacing: 1px;
     background-color: rgba(0, 0, 0, 0.03);
   }

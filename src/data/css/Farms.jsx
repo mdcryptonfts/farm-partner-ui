@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import config from "../config.json";
 
 export const InputWrapper = styled.div`
   width: 100%;
@@ -7,9 +6,9 @@ export const InputWrapper = styled.div`
   input,
   select {
     font-size: 18px;
-    color: ${config.theme.darkBlue};
-    background-color: ${config.theme.offWhite};
-    border: 1px solid ${config.theme.offWhiteDarker};
+    color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.secondary};
+    border: 1px solid ${props => props.theme.secondaryAccent};
     border-radius: 7px;
     padding: 5px;
     padding-left: 10px;
@@ -17,13 +16,13 @@ export const InputWrapper = styled.div`
 
     :focus {
       outline: none;
-      border: 1px solid ${config.theme.darkGrey};
+      border: 1px solid ${props => props.theme.onSurface};
     }
   }
 
   textarea {
     background-color: transparent;
-    border: 1px solid ${config.theme.secondaryLight};
+    border: 1px solid ${props => props.theme.secondary};
     border-radius: 7px;
     padding: 5px;
     padding-left: 10px;
@@ -38,7 +37,7 @@ export const InputWrapper = styled.div`
 
     &::-webkit-scrollbar-thumb {
       border-radius: 10px;
-      background-color: ${config.theme.primary};
+      background-color: ${props => props.theme.onSurface};
     }
 
     &::-webkit-scrollbar {
@@ -46,11 +45,11 @@ export const InputWrapper = styled.div`
     }
 
     //Firefox
-    scrollbar-color: ${config.theme.primary} transparent;
+    scrollbar-color: ${props => props.theme.primary} transparent;
     scrollbar-width: thin;
 
     :focus {
-      outline: 2px solid ${config.theme.primary};
+      outline: 2px solid ${props => props.theme.primary};
     }
   }
 
@@ -58,20 +57,20 @@ export const InputWrapper = styled.div`
     width: 100%;
     padding-top: 5px;
     font-size: 12px;
-    color: ${config.theme.textSecondary};
+    color: ${props => props.theme.secondary};
   }
 
   h4 {
     width: 100%;
     padding-top: 5px;
     font-size: 12px;
-    color: ${config.theme.darkGrey};
+    color: ${props => props.theme.onSurface};
   }
 `;
 
 export const StakeContainer = styled.div`
   width: 500px;
-  background-color: ${(props) => (props.bg ? props.bg : "white")};
+  background-color: ${(props) => (props.bg ? props.bg : props.theme.surface)};
   margin-left: auto;
   margin-right: auto;
   margin-top: 25px;
@@ -84,12 +83,12 @@ export const StakeContainer = styled.div`
 
   span {
     font-size: 12px;
-    color: ${config.theme.darkGrey};
+    color: ${props => props.theme.onSurface};
   }
 
   h2 {
     font-size: 24px;
-    color: ${config.theme.darkBlue};
+    color: ${props => props.theme.primary};
     font-weight: 600;
   }
 
@@ -107,10 +106,9 @@ export const SpaceBetweenDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
   font-size: 12px;
-  //margin-top: 20px;
   margin-bottom: 5px;
   justify-content: space-between;
-  color: ${config.theme.darkBlue};
+  color: ${(props) => props.theme.primary};
 
   .token-logo {
     width: 20px;

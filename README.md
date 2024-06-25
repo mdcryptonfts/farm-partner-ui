@@ -6,6 +6,17 @@ A [farm partner contract](https://github.com/mdcryptonfts/farm-partner-contract)
 
 Once that's done, users will be able to create custom token farms on your platform, earning you fees in the process.
 
+## Build Process
+
+This app is build with React 18. To build the app, download the latest release and then run the following commands.
+
+- `npm install`
+- `npm run build`
+
+Due to the preinstall/postinstall process, it should be noted that you may see a warning about dependency vulnerabilities. However, if you run `npm audit`, you will see that there are actually 0 vulnerabilities.
+
+This is because these vulnerabilities are caught during the build process, but are then fixed automatically with the pre/post install scripts.
+
 ## Configuring The App
 
 Settings are conveniently located in the `/src/data/config.json` file. The section below outlines each of the config options.

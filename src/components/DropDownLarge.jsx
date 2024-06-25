@@ -1,24 +1,41 @@
 import React from "react";
-import { UserDropDown, UserDropDownBalancesCont, UserDropDownBuyWaxDaoButton, UserDropDownLinkButton, UserDropDownTopLeft, UserDropDownTopSection, UserDropDownWalletsSeparator, UserDropDownWalletsTitleCont, UserDrowDownInnerScrollWrapper } from "../data/css/NavbarStyles";
+import {
+  UserDropDown,
+  UserDropDownBalancesCont,
+  UserDropDownBuyWaxDaoButton,
+  UserDropDownLinkButton,
+  UserDropDownTopLeft,
+  UserDropDownTopSection,
+  UserDropDownWalletsSeparator,
+  UserDropDownWalletsTitleCont,
+  UserDrowDownInnerScrollWrapper,
+} from "../data/css/NavbarStyles";
 import config from "../data/config.json";
 import { showMyBalances } from "../data/functions/helpers";
 import { useStateContext } from "../contexts/ContextProvider";
 import { logInWithWharfkit, logOutWharfkit } from "../data/wharfkit";
 import WaxAccount from "./WaxAccount";
+import { useTheme } from "../contexts/ThemeContext";
 
 const network = config.networks[config.currentNetwork];
 const currentWebsiteURL = config.production
   ? network.urls.website
   : config.localUrl;
 
-
 const DropDownLarge = (props) => {
-    const { tokenBalances, balancesAreLoading, setCurrentUsername, setWharfSession, currentUsername } = useStateContext();
+  const { theme } = useTheme();
+  const {
+    tokenBalances,
+    balancesAreLoading,
+    setCurrentUsername,
+    setWharfSession,
+    currentUsername,
+  } = useStateContext();
 
-    const showUserDropDown = props.showUserDropDown;
-    const setShowUserDropDown = props.setShowUserDropDown;
-    const sessions = props.sessions;
-    const setSessions = props.setSessions;
+  const showUserDropDown = props.showUserDropDown;
+  const setShowUserDropDown = props.setShowUserDropDown;
+  const sessions = props.sessions;
+  const setSessions = props.setSessions;
 
   return (
     <UserDropDown open={showUserDropDown}>
@@ -47,7 +64,7 @@ const DropDownLarge = (props) => {
         </UserDropDownTopSection>
         <UserDropDownBalancesCont>
           <h3>MY BALANCES</h3>
-          {showMyBalances(tokenBalances, balancesAreLoading)}
+          {showMyBalances(tokenBalances, balancesAreLoading, theme)}
           <a href={config.buyTokensUrl} target="none">
             <UserDropDownBuyWaxDaoButton>
               BUY {config.projectToken.symbol}

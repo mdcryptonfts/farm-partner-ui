@@ -2,8 +2,10 @@ import React from "react";
 import { Modal2024, ModalContent2024, ModalOverlay2024 } from "../Styles";
 import config from "../data/config.json";
 import LoadingDiv from "./LoadingDiv";
+import { useTheme } from "../contexts/ThemeContext";
 
 const TransactionModal = (props) => {
+    const { theme } = useTheme();
     const setShowTxModal = props.setShowTxModal;
     const txModalText = props.txModalText;
     const txIsLoading = props.txIsLoading;
@@ -18,7 +20,7 @@ const TransactionModal = (props) => {
             paddingRight: "5px",
             fontSize: "22px",
             fontWeight: "400",
-            color: config.theme.textMain,
+            color: theme.onBackground,
           }}
         >
           <button

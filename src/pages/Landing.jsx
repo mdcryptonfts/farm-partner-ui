@@ -24,7 +24,7 @@ const Landing = () => {
 
           <NewRow />
 
-          <a href={config.socials.docs} target="none">
+          <a href={config.socials.docs} style={{fontWeight: 500, letterSpacing: "0.7px"}} target="none">
             LEARN MORE
           </a>
         </MainSection>
@@ -33,7 +33,7 @@ const Landing = () => {
           <h2>What We Offer</h2>
           <p>Explore the benefits of WaxDAO's token farms</p>
 
-          <FeatureCard fill="none" stroke={config.theme.darkGrey}>
+          <FeatureCard fill="none" stroke={({ theme }) => theme.onSurface}>
             <div className="w-100 flex justify-center pt-10">{sale_svg}</div>
 
             <h3>Low Cost</h3>
@@ -44,7 +44,7 @@ const Landing = () => {
             </p>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard fill={({ theme }) => theme.onSurface}>
             <div className="w-100 flex justify-center pt-10">{code_svg}</div>
 
             <h3>No Code</h3>
@@ -54,7 +54,7 @@ const Landing = () => {
             </p>
           </FeatureCard>
 
-          <FeatureCard>
+          <FeatureCard fill={({ theme }) => theme.onSurface}>
             <div className="w-100 flex justify-center pt-10">{handshake_svg}</div>
 
             <h3>Partner Program</h3>
@@ -65,7 +65,7 @@ const Landing = () => {
             </p>
           </FeatureCard>      
 
-          <FeatureCard stroke={config.theme.darkGrey} fill="none">
+          <FeatureCard stroke={({ theme }) => theme.onSurface} fill="none">
             <div className="w-100 flex justify-center pt-10">{efficient_svg}</div>
 
             <h3>Efficient</h3>
@@ -76,7 +76,7 @@ const Landing = () => {
             </p>
           </FeatureCard>   
 
-          <FeatureCard>
+          <FeatureCard fill={({ theme }) => theme.onSurface}>
             <div className="w-100 flex justify-center pt-10">{coins_svg}</div>
 
             <h3>Multiple Reward Tokens</h3>
@@ -87,7 +87,7 @@ const Landing = () => {
             </p>
           </FeatureCard>    
 
-          <FeatureCard fill="none" stroke={config.theme.darkGrey}>
+          <FeatureCard fill="none" stroke={({ theme }) => theme.onSurface}>
             <div className="w-100 flex justify-center pt-10">{unlocked_svg}</div>
 
             <h3>Permissionless</h3>

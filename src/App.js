@@ -1,13 +1,12 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import { Body, MainWrapper } from "./Styles";
 import { useStateContext } from "./contexts/ContextProvider";
 import { Footer } from "./components";
 import { sessionKit } from "./data/wharfkit";
 import { GlobalStyle } from "./Styles";
 import Navbar2024 from "./components/Navbar2024";
-import RedirectDiscord from "./components/Discord";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const Farms = lazy(() => import("./pages/Farms"));
 const LandingPage = lazy(() => import("./pages/Landing"));
@@ -31,6 +30,7 @@ const App = () => {
 
   return (
     <div>
+      <ThemeProvider>
       <GlobalStyle />
       <BrowserRouter>
         <MainWrapper>
@@ -46,8 +46,6 @@ const App = () => {
                     <Route path="/farms" element={<Farms />} />
                     <Route path="/manage-farm/:FarmName" element={<ManageFarmPage />} />
 
-                    <Route path="/discord" element={<RedirectDiscord />} />
-
                     {/* 404 NOT FOUND CATCHALL */}
 
                     <Route path="*" element={<NotFound />} />
@@ -59,6 +57,7 @@ const App = () => {
           </div>
         </MainWrapper>
       </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 };

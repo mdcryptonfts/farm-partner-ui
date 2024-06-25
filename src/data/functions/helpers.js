@@ -41,8 +41,7 @@ export const calculateOuterHeight = (
   if (location == "Reward Pools") {
     return `${pools?.length * 165 + baseHeight}px`;
   } else if (location == "Claim") {
-    if (claimsAreLoading) return `${baseHeight + originalheight}px`;
-    if (claims?.length == 0) return `${baseHeight + originalheight}px`;
+    if (claimsAreLoading || claims?.length == 0) return `${originalheight + 180}px`;
     let buttonHeight;
     switch (claims?.length) {
       case 0:
@@ -105,8 +104,7 @@ export const calculateInnerHeight = (
   if (location == "Reward Pools") {
     return `${pools?.length * 165 + baseHeight}px`;
   } else if (location == "Claim") {
-    if (claimsAreLoading) return `${baseHeight + originalheight}px`;
-    if (claims?.length == 0) return `${baseHeight + originalheight + 100}px`;
+    if (claimsAreLoading || claims?.length == 0) return `${originalheight + 180}px`;
     let buttonHeight;
     switch (claims?.length) {
       case 0:
@@ -166,6 +164,11 @@ export const farmSortMethods = [
   "Farm Name a-z",
   "Farm Name z-a",
 ];
+
+export const roundDownAndFormat = (number) => {
+  const roundedNumber = Math.floor(number);
+  return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 export const getNextReward = async () => {
   for (const api of network.endpoints.chain) {
@@ -275,12 +278,12 @@ export const showBalance = (selectedToken, tokenBalances, loading) => {
   return tokenBalances[index].amount;
 };
 
-export const showMyBalances = (tokens, loading) => {
+export const showMyBalances = (tokens, loading, theme) => {
   if (loading)
     return (
       <span>
-        <h4 style={{ color: config.theme.darkGrey }}>0 WAX</h4>
-        <h4 style={{ color: config.theme.darkGrey }}>
+        <h4 style={{ color: theme.onSurface }}>0 WAX</h4>
+        <h4 style={{ color: theme.onSurface }}>
           0 {config.projectToken.symbol}
         </h4>
       </span>
@@ -302,7 +305,7 @@ export const showMyBalances = (tokens, loading) => {
 
   return (
     <span>
-      <h4 style={{ color: config.theme.darkGrey }}>
+      <h4 style={{ color: theme.onSurface }}>
         <NumberFormat
           displayType="text"
           thousandSeparator={true}
@@ -310,7 +313,7 @@ export const showMyBalances = (tokens, loading) => {
         />{" "}
         WAX
       </h4>
-      <h4 style={{ color: config.theme.darkGrey }}>
+      <h4 style={{ color: theme.onSurface }}>
         <NumberFormat
           displayType="text"
           thousandSeparator={true}

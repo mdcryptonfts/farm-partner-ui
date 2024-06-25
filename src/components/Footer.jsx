@@ -9,15 +9,22 @@ import {
   FooterLeft,
   FooterRight,
   SocialIconsDiv,
+  Slider,
+  SliderCircle,
 } from "../data/css/FooterStyles";
 import config from "../data/config.json";
 import { capitalizeFirstLetter, getSocialLogo } from "../data/functions/helpers";
+import { useTheme } from "../contexts/ThemeContext";
+import { github_svg, moon_svg, sun_svg } from "../data/svgs";
+
 
 const Footer = () => {
   const network = config.networks[config.currentNetwork];
   const currentWebsiteURL = config.production
     ? network.urls.website
     : config.localUrl;
+
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <FooterCont>
@@ -58,7 +65,18 @@ const Footer = () => {
               {getSocialLogo(key)}
             </a>
           ))}
+
+            <Slider
+                onClick={(e) => {
+                  toggleTheme();
+                }}
+                toggled={theme == config.themes.dark}
+            >
+              {theme == config.themes.dark ? sun_svg : moon_svg}
+                <SliderCircle toggled={theme == config.themes.dark} />
+            </Slider>          
       </SocialIconsDiv>
+      
     </FooterCont>
   );
 };
