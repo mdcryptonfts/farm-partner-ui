@@ -8,7 +8,7 @@ Once that's done, users will be able to create custom token farms on your platfo
 
 ## Build Process
 
-This app is build with React 18. To build the app, download the latest release and then run the following commands.
+This app is built with React 18. To build the app, download the latest release and then run the following commands.
 
 - `npm install`
 - `npm run build`
