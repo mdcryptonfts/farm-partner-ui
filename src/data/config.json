@@ -50,6 +50,9 @@
                     "https://wax.light-api.net",
                     "https://lightapi-wax.tacocrypto.io",
                     "https://light-api-wax-main.wecan.dev"                    
+                ],
+                "tokenfarms": [
+                    "https://token-farms.waxdaobp.io"
                 ]
             },
             "urls": {
@@ -70,7 +73,11 @@
                 ],
                 "lightapi": [
                     "https://testnet-lightapi.eosams.xeos.me"
-                ]
+                ],
+                "_comment": "token-farms endpoint is only on wax mainnet, for now",
+                "tokenfarms": [
+                    "https://token-farms.waxdaobp.io"
+                ]                
             },            
             "urls": {
                 "explorer": "https://testnet.waxblock.io",

@@ -13,11 +13,11 @@ import Folders from "../components/Folders";
 import TransactionModal from "../components/TransactionModal";
 import CreateFarm from "../components/CreateFarm";
 import { useSearchParams } from "react-router-dom";
-import { useGetFarmsByPartner } from "../components/CustomHooks/useGetFarmsByPartner";
 import { InputWrapper, StakeContainer } from "../data/css/Farms";
 import FarmCard from "../components/FarmCard";
 import { farmSortMethods, sortFarms } from "../data/functions/helpers";
 import ManageTab from "../components/ManageTab";
+import { getFarmsByCreator, getFarmsByPartner, getStakedOnly } from "../data/functions/apiCalls";
 
 const Farms = () => {
   const {
@@ -27,6 +27,8 @@ const Farms = () => {
     txIsLoading,
     tokenBalances,
     balancesAreLoading,
+    currentUsername,
+    isLoggedIn
   } = useStateContext();
 
   const network = config.networks[config.currentNetwork];
@@ -34,9 +36,10 @@ const Farms = () => {
     ? network.urls.website
     : config.localUrl;
 
-  const tabs = ["browse", "create", "manage"];
+  const tabs = ["browse", "create", "manage", "staked only"];
   const [searchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
+  const creatorParam = searchParams.get("creator");
 
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [selectedToken, setSelectedToken] = useState({
@@ -58,24 +61,58 @@ const Farms = () => {
   const [rewardPeriod, setRewardPeriod] = useState("");
   const [paymentMethod, setPaymentMethod] = useState({});
   const [currentFarmTab, setCurrentFarmTab] = useState("Reward Pools");
+  const [farmsAreLoading, setFarmsAreLoading] = useState(true);
+  const [farms, setFarms] = useState([]);
 
   // Custom Hooks
   const [prices, getFarmPrices, pricesAreLoading] = useGetFarmPrices();
-  const [farms, setFarms, getFarms, farmsAreLoading] = useGetFarmsByPartner();
 
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted && currentSection == "create") {
+    if (isMounted && currentSection === "create") {
       getFarmPrices();
-    } else if (isMounted && currentSection == "browse") {
-      getFarms();
+    } else if (isMounted && currentSection === "browse") {
+      setFarmsAreLoading(true);
+      const fetchFarms = async () => {
+        if (creatorParam) {
+          const creatorFarms = await getFarmsByCreator(creatorParam);
+          if (isMounted) {
+            setFarms(creatorFarms);
+            setFarmsAreLoading(false);
+          }
+        } else {
+          const partnerFarms = await getFarmsByPartner();
+          if (isMounted) {
+            setFarms(partnerFarms);
+            setFarmsAreLoading(false);
+          }
+        }
+      };
+      fetchFarms();
+    } else if (isMounted && currentSection === "staked only") {
+      setFarmsAreLoading(true);
+      const fetchFarms = async () => {
+        if (isLoggedIn) {
+          const stakedFarms = await getStakedOnly(currentUsername);
+          if (isMounted) {
+            setFarms(stakedFarms);
+            setFarmsAreLoading(false);
+          }
+        } else {
+          if (isMounted) {
+            setFarms([]);
+            setFarmsAreLoading(false);
+          }
+        }
+      };
+      fetchFarms();
     }
 
     return () => {
       isMounted = false;
     };
-  }, [currentSection]);
+  }, [currentSection, creatorParam]);
 
   useEffect(() => {
     let isMounted = true;
@@ -164,7 +201,7 @@ const Farms = () => {
           />
         )}
 
-        {currentSection == "browse" && (
+        {(currentSection == "browse" || currentSection == "staked only") && (
           <>
             {farmsAreLoading && (
               <MessageWrapper>Farms are loading...</MessageWrapper>

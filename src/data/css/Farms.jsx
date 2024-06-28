@@ -6,7 +6,7 @@ export const InputWrapper = styled.div`
   input,
   select {
     font-size: 18px;
-    color: ${props => props.theme.primary};
+    color: ${props => props.theme.onSurface};
     background-color: ${props => props.theme.secondary};
     border: 1px solid ${props => props.theme.secondaryAccent};
     border-radius: 7px;
@@ -108,7 +108,7 @@ export const SpaceBetweenDiv = styled.div`
   font-size: 12px;
   margin-bottom: 5px;
   justify-content: space-between;
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.onSurface};
 
   .token-logo {
     width: 20px;

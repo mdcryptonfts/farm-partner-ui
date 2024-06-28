@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useGetFarmsToManage } from "./CustomHooks/useGetFarmsToManage";
+import React, { useEffect, useState } from "react";
 import { MessageWrapper } from "../Styles";
 import { useStateContext } from "../contexts/ContextProvider";
 import FarmManagerCard from "./FarmManagerCard";
+import { getFarmsByCreator } from "../data/functions/apiCalls";
 
 const ManageTab = () => {
   const {
@@ -10,13 +10,21 @@ const ManageTab = () => {
     isLoggedIn,
   } = useStateContext();
 
-  const [farms, getFarms, farmsAreLoading] = useGetFarmsToManage();
+  const [farms, setFarms] = useState([]);
+  const [farmsAreLoading, setFarmsAreLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
 
+    const fetchFarms = async () => {
+      setFarmsAreLoading(true);
+      const farmList = await getFarmsByCreator(wharfSession.actor);
+      setFarms(farmList);
+      setFarmsAreLoading(false);
+    }    
+
     if (isMounted && isLoggedIn){
-        getFarms(wharfSession.actor);
+      fetchFarms();
     }
 
     return () => {

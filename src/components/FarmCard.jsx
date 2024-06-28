@@ -9,7 +9,6 @@ import { MessageWrapper } from "../Styles";
 import { SpaceBetweenDiv } from "../data/css/Farms";
 import { Asset, ExtendedSymbol } from "@wharfkit/antelope";
 import Folders from "./Folders";
-import { useGetFarmRewardPools } from "./CustomHooks/useGetFarmRewardPools";
 import {
   calculateInnerHeight,
   calculateOuterHeight,
@@ -53,16 +52,13 @@ const FarmCard = (props) => {
   const setCurrentFarmTab = props.setCurrentFarmTab;
 
   // Custom Hooks
-  const [pools, getPools, poolsAreLoading] = useGetFarmRewardPools();
   const [stake, getStake, stakeIsLoading] = useGetUserStake();
   const [balances, getBalances, claimsAreLoading] = useGetClaimableBalances();
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted && currentIndex == index) {
-      if (currentFarmTab == "Reward Pools") {
-        getPools(farm?.farm_name);
-      } else if (currentFarmTab == "Unstake" && isLoggedIn) {
+      if (currentFarmTab == "Unstake" && isLoggedIn) {
         getStake(farm?.farm_name, wharfSession.actor);
       } else if (currentFarmTab == "Claim") {
         if (isLoggedIn) {
@@ -79,8 +75,7 @@ const FarmCard = (props) => {
   return (
     <FarmCardWrapper
       height={calculateOuterHeight(
-        pools,
-        poolsAreLoading,
+        farm?.reward_pools?.rewards,
         215,
         100,
         200,
@@ -104,7 +99,7 @@ const FarmCard = (props) => {
           <span>
             <b>{farm?.farm_name}</b>
             <WideOnly as="span" breakPoint={"470px"}>
-            &nbsp;by {farm?.creator}
+              &nbsp;by {farm?.original_creator}
             </WideOnly>
           </span>
           <span>
@@ -135,8 +130,7 @@ const FarmCard = (props) => {
 
       <FarmDetailsWrapper
         height={calculateInnerHeight(
-          pools,
-          poolsAreLoading,
+          farm?.reward_pools?.rewards,
           115,
           0,
           200,
@@ -172,7 +166,7 @@ const FarmCard = (props) => {
             />
 
             {currentFarmTab == "Reward Pools" && (
-              <RewardsTab poolsAreLoading={poolsAreLoading} pools={pools} />
+              <RewardsTab poolsAreLoading={false} pools={farm?.reward_pools?.rewards} />
             )}
 
             {currentFarmTab == "Stake" && (

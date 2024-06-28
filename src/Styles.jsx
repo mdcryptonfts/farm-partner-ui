@@ -260,7 +260,7 @@ export const FolderTab2024 = styled.button`
     width: 175px;
     border-bottom: ${props => props.selected == true ? `2px solid ${props.theme.primary}` : 'none'};
     height: 30px;
-    color: ${props => props.selected == true ? props.theme.primary : props.color ? props.color : 'white' };
+    color: ${props => props.selected == true ? props.theme.primary : props.color ? props.color : props.theme.darkGrey };
     font-weight: 500;
 
     :hover{
@@ -278,7 +278,7 @@ export const RentalFolderTab = styled.button`
     width: 175px;
     border-bottom: ${props => props.selected == true ? `2px solid ${props.theme.primary}` : 'none'};
     height: 30px;
-    color: ${props => props.selected == true ? props.theme.primary : props.theme.darkGrey };
+    color: ${props => props.selected == true ? props.theme.primary : props.theme.onSurface };
     font-weight: 500;
 
     :hover{
@@ -299,7 +299,7 @@ export const MessageWrapper = styled.div`
     text-align: left;
     font-size: 12px;
     background-color: ${props => props.theme.secondary};
-    color: ${props => props.theme.primary};
+    color: ${props => props.theme.onSurface};
     padding: 10px;
     height: ${props => props.height && props.height};
     margin-top: ${props => props.top ? props.top : "25px"};

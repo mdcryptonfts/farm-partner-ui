@@ -21,7 +21,6 @@ const contractKit = new ContractKit({
 
 export const calculateOuterHeight = (
   pools,
-  poolsAreLoading,
   baseHeight = 0,
   originalheight = 0,
   noPoolsHeight = 0,
@@ -34,7 +33,6 @@ export const calculateOuterHeight = (
   balanceToStake = 0
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
-    if (poolsAreLoading) return `${0 + originalheight}px`;
     return `${noPoolsHeight + originalheight}px`;
   }
 
@@ -84,7 +82,6 @@ export const calculateOuterHeight = (
 
 export const calculateInnerHeight = (
   pools,
-  poolsAreLoading,
   baseHeight = 0,
   originalheight = 0,
   noPoolsHeight = 0,
@@ -97,7 +94,6 @@ export const calculateInnerHeight = (
   balanceToStake = 0
 ) => {
   if (pools?.length == 0 && location == "Reward Pools") {
-    if (poolsAreLoading) return `${0 + originalheight}px`;
     return `${noPoolsHeight + originalheight}px`;
   }
 
@@ -146,7 +142,10 @@ export const calculateInnerHeight = (
 };
 
 export const capitalizeFirstLetter = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return str
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 };
 
 export const currentRewardPool = (rewardPool) => {

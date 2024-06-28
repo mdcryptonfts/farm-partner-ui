@@ -9,14 +9,13 @@ import TransactionModal from "../components/TransactionModal";
 import { useStateContext } from "../contexts/ContextProvider";
 import SelectTokenModal from "../components/SelectTokenModal";
 import config from "../data/config.json";
-import { useGetFarmRewardPools } from "../components/CustomHooks/useGetFarmRewardPools";
 import { useParams } from "react-router-dom";
-import { useGetFarmSingle } from "../components/CustomHooks/useGetFarmSingle";
 import LoadingDiv from "../components/LoadingDiv";
 import NotFound from "../components/NotFound";
 import RewardCard from "../components/RewardCard";
 import AddReward from "../components/AddReward";
 import ExtendReward from "../components/ExtendReward";
+import { getFarmSingle } from "../data/functions/apiCalls";
 
 const ManageFarmPage = () => {
   const network = config.networks[config.currentNetwork];
@@ -38,8 +37,8 @@ const ManageFarmPage = () => {
   } = useStateContext();
 
   // Custom Hooks
-  const [pools, getPools, poolsAreLoading] = useGetFarmRewardPools();
-  const [farm, getFarm, farmIsLoading, farmCreator] = useGetFarmSingle();
+  const [farm, setFarm] = useState([]);
+  const [farmIsLoading, setFarmIsLoading] = useState(true);
 
   const [currentSection, setCurrentSection] = useState("Reward Pools");
   const [rewardToExtend, setRewardToExtend] = useState({});
@@ -53,24 +52,29 @@ const ManageFarmPage = () => {
   useEffect(() => {
     let isMounted = true;
 
-    if (farm?.length == 0) {
-      getFarm(FarmName);
-    }
+    if(isMounted){
+      const fetchFarm = async () => {
+        setFarmIsLoading(true);
+        const farmData = await getFarmSingle(FarmName);
+        setFarm(farmData);
+        setFarmIsLoading(false);
+      }
+      if (farm?.length == 0) {
+        fetchFarm();
+      }
 
-    if (currentSection == "Reward Pools") {
-      getPools(FarmName);
     }
 
     return () => {
       isMounted = false;
     };
-  }, [currentSection]);
+  }, []);
 
   if (
     !farmIsLoading &&
     farm?.length > 0 &&
     isLoggedIn &&
-    currentUsername == farmCreator
+    currentUsername == farm[0]?.original_creator
   ) {
     return (
       <div>
@@ -103,15 +107,14 @@ const ManageFarmPage = () => {
           />
 
           {currentSection == "Reward Pools" && <>
-            {poolsAreLoading && <LoadingDiv />}
 
-            {!poolsAreLoading && pools?.length == 0 && (
+            {farm[0]?.reward_pools?.rewards?.length == 0 && (
                 <MessageWrapper>
                     No reward pools exist for this farm yet.
                 </MessageWrapper>
             )}
 
-            {!poolsAreLoading && pools?.length > 0 && pools.map((item, index) => (
+            {farm[0]?.reward_pools?.rewards?.length > 0 && farm[0]?.reward_pools?.rewards?.map((item, index) => (
                 <RewardCard key={index} item={item} manage={true} 
                 setCurrentSection={setCurrentSection} 
                 setRewardToExtend={setRewardToExtend}
@@ -126,7 +129,7 @@ const ManageFarmPage = () => {
 
           {currentSection == "Extend Reward" && (
             <>
-            {rewardToExtend?.id ? (
+            {rewardToExtend && 'id' in rewardToExtend ? (
               <ExtendReward farmName={FarmName} rewardToExtend={rewardToExtend} />
             ) : <MessageWrapper>
               No reward has been selected. Please choose a reward from the `Reward Pools` section.
@@ -148,7 +151,7 @@ const ManageFarmPage = () => {
     return <NotFound />;
   } else if (
     !farmIsLoading &&
-    (!isLoggedIn || currentUsername != farmCreator)
+    (!isLoggedIn || currentUsername != farm[0]?.original_creator)
   ) {
     return (
       <PageWrapper2024>
