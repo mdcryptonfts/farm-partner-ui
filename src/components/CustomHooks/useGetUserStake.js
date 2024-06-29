@@ -24,7 +24,7 @@ export const useGetUserStake = () => {
                     json: true,
                 });
 
-                if (res?.data?.rows?.length > 0) {
+                if (res?.data?.rows) {
                     setStake(res.data.rows);
                     break;
                 }

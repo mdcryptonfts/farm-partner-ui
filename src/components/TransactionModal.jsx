@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal2024, ModalContent2024, ModalOverlay2024 } from "../Styles";
-import config from "../data/config.json";
 import LoadingDiv from "./LoadingDiv";
 import { useTheme } from "../contexts/ThemeContext";
 

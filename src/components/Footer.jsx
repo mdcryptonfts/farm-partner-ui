@@ -15,7 +15,7 @@ import {
 import config from "../data/config.json";
 import { capitalizeFirstLetter, getSocialLogo } from "../data/functions/helpers";
 import { useTheme } from "../contexts/ThemeContext";
-import { github_svg, moon_svg, sun_svg } from "../data/svgs";
+import { moon_svg, sun_svg } from "../data/svgs";
 
 
 const Footer = () => {

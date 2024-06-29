@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  FoldersContainer2024,
   MessageWrapper,
   PageWrapper2024,
-  RentalFolderTab,
 } from "../Styles";
 import Folders from "../components/Folders";
 import TransactionModal from "../components/TransactionModal";
@@ -17,7 +15,6 @@ import { getFarmSingle, getStakersList } from "../data/functions/apiCalls";
 import { SpaceBetweenDiv, StakeContainer } from "../data/css/Farms";
 import { RewardPoolWrapper } from "../data/css/FarmCard";
 import { roundDownAndFormat } from "../data/functions/helpers";
-import { FoldersRowCentered } from "../data/css/Form";
 import StakeTab from "../components/StakeTab";
 import { ExtendedSymbol } from "@wharfkit/antelope";
 import UnstakeTab from "../components/UnstakeTab";
@@ -36,14 +33,9 @@ const FarmPage = () => {
     setShowTxModal,
     txModalText,
     txIsLoading,
-    tokenBalances,
-    balancesAreLoading,
-    getTokenBalances,
     isLoggedIn,
-    currentUsername,
     wharfSession,
-    refresh,
-    setRefresh,
+    refresh
   } = useStateContext();
 
   // Custom Hooks
@@ -51,29 +43,26 @@ const FarmPage = () => {
   const [farmIsLoading, setFarmIsLoading] = useState(true);
   const [stakers, setStakers] = useState([]);
   const [stakersAreLoading, setStakersAreLoading] = useState(true);
-
-  const [currentSection, setCurrentSection] = useState("Farm Info");
+  const [stake, getStake, stakeIsLoading] = useGetUserStake();
+  const [balances, getBalances, claimsAreLoading] = useGetClaimableBalances();  
 
   const positionTabs = ["Stake", "Unstake"];
+  const [currentSection, setCurrentSection] = useState("Farm Info");
   const [positionTab, setPositionTab] = useState("Stake");
-  const [sym, setSym] = useState({});
   const [symName, setSymName] = useState("");
   const [precision, setPrecision] = useState("");
   const [contract, setContract] = useState("");
 
-  // Custom Hooks
-  const [stake, getStake, stakeIsLoading] = useGetUserStake();
-  const [balances, getBalances, claimsAreLoading] = useGetClaimableBalances();
-
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      if (positionTab == "Unstake" && isLoggedIn) {
-        getStake(farm[0]?.farm_name, wharfSession.actor);
-      } else if (currentSection == "Claim") {
+      if (currentSection == "Claim") {
         if (isLoggedIn) {
           getBalances(wharfSession.actor, farm[0]?.farm_name);
         }
+      }      
+      else if (currentSection == "Positions" && positionTab == "Unstake" && isLoggedIn) {
+        getStake(farm[0]?.farm_name, wharfSession.actor);
       }
     }
 
@@ -96,7 +85,6 @@ const FarmPage = () => {
         setFarmIsLoading(false);
         setStakersAreLoading(false);
 
-        setSym(ExtendedSymbol.from(farmData[0]?.staking_token).sym);
         setPrecision(
           ExtendedSymbol.from(farmData[0]?.staking_token).sym.precision
         );
@@ -189,14 +177,14 @@ const FarmPage = () => {
                   network={network}
                   symName={symName}
                   contract={contract}
-                  farm={farm}
+                  farm={farm[0]}
                   precision={precision}
                 />
               )}
 
               {positionTab == "Unstake" && (
                 <UnstakeTab
-                  farm={farm}
+                  farm={farm[0]}
                   precision={precision}
                   stakeIsLoading={stakeIsLoading}
                   stake={stake}
@@ -210,7 +198,7 @@ const FarmPage = () => {
           {currentSection == "Claim" && (
             <StakeContainer wide={true}>
               <ClaimTab
-                farm={farm}
+                farm={farm[0]}
                 balances={balances}
                 balancesAreLoading={claimsAreLoading}
               />
