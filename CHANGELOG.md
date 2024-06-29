@@ -5,6 +5,7 @@
 - Updated capitalizeFirstLetter to handle multiple words
 - Fixed case where reward id is 0 and was evaluated as false
 - Remove deprecated custom hooks
+- Added individual farm pages
 
 ---
 # v1.0.0-beta.4 (June 25, 2024)

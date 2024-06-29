@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FarmCardWrapper = styled.div`
-  position: relative;
+  position: ${props => props.position ? props.position : "relative"};
   height: ${(props) => (!props.show ? "100px" : props.height ? props.height : "495px")};
   width: 90%;
   display: flex;

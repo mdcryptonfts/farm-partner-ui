@@ -69,7 +69,8 @@ export const InputWrapper = styled.div`
 `;
 
 export const StakeContainer = styled.div`
-  width: 500px;
+  width: ${props => props.wide ? "800px" : "500px"};
+  max-width: ${props => props.wide && "98%"};
   background-color: ${(props) => (props.bg ? props.bg : props.theme.surface)};
   margin-left: auto;
   margin-right: auto;
@@ -105,6 +106,7 @@ export const SpaceBetweenDiv = styled.div`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: ${(props) => props.marginTop && props.marginTop};
   font-size: 12px;
   margin-bottom: 5px;
   justify-content: space-between;

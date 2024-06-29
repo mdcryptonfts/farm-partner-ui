@@ -126,3 +126,34 @@ export const getStakedOnly = async (user, page = 1, limit = 100, sort = "newest"
       return [];
     }
   };
+
+  export const getStakersList = async (farm_name, page = 1, limit = 100) => {
+    for (const api of network.endpoints.tokenfarms) {
+      try {
+        const res = await axios.post(
+          `${api}/get-stakers`,
+          {
+            farm_name: farm_name,
+            page: page,
+            limit: limit,
+            json: true,
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+  
+        if (res?.data?.stakers) {
+            console.log(res.data.stakers);
+          return res.data.stakers;
+        }
+      } catch (error) {
+        console.log(`Failed getting stakers list from ${api}. Error: ${error}`);
+        return [];
+      }
+      return [];
+    }
+  };

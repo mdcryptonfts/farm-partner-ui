@@ -26,6 +26,7 @@ import { useGetClaimableBalances } from "./CustomHooks/useGetClaimableBalances";
 
 const FarmCard = (props) => {
   const network = config.networks[config.currentNetwork];
+  const currentWebsiteURL = config.production ? network.urls.website : config.localUrl;
   const tabs = ["Reward Pools", "Stake", "Unstake", "Claim"];
 
   const {
@@ -97,9 +98,9 @@ const FarmCard = (props) => {
       <MessageWrapper top={"5px"} height={"40px"}>
         <SpaceBetweenDiv>
           <span>
-            <b>{farm?.farm_name}</b>
+            <b><a href={`${currentWebsiteURL}/farm/${farm?.farm_name}`}>{farm?.farm_name}</a></b>
             <WideOnly as="span" breakPoint={"470px"}>
-              &nbsp;by {farm?.original_creator}
+              &nbsp;by <a href={`${network.urls.explorer}/account/${farm?.original_creator}`} target="none">{farm?.original_creator}</a>
             </WideOnly>
           </span>
           <span>

@@ -12,6 +12,7 @@ const Farms = lazy(() => import("./pages/Farms"));
 const LandingPage = lazy(() => import("./pages/Landing"));
 const LoadingPage = lazy(() => import("./pages/Loading"));
 const ManageFarmPage = lazy(() => import("./pages/ManageFarmPage"));
+const FarmPage = lazy(() => import("./pages/FarmPage"));
 const NotFound = lazy(() => import("./components/NotFound"));
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
 
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/farms" element={<Farms />} />
+                    <Route path="/farm/:FarmName" element={<FarmPage />} />
                     <Route path="/manage-farm/:FarmName" element={<ManageFarmPage />} />
 
                     {/* 404 NOT FOUND CATCHALL */}

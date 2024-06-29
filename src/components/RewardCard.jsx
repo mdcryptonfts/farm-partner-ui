@@ -1,7 +1,7 @@
 import { RewardPoolWrapper } from "../data/css/FarmCard";
 import React from "react";
 import { SpaceBetweenDiv } from "../data/css/Farms";
-import { currentRewardPool, isInProgress, isRewardExpired, roundDownAndFormat } from "../data/functions/helpers";
+import { isInProgress, isRewardExpired, roundDownAndFormat } from "../data/functions/helpers";
 
 const RewardCard = (props) => {
   const item = props.item;
@@ -12,7 +12,7 @@ const RewardCard = (props) => {
     <RewardPoolWrapper>
       <SpaceBetweenDiv>
         <p>Reward Pool</p>
-        <b>{`${roundDownAndFormat(String(currentRewardPool(item)).split(" ")[0])} ${String(currentRewardPool(item)).split(" ")[1]}`}</b>
+        <b>{`${roundDownAndFormat(item.reward_pool.quantity.split(" ")[0])} ${item.reward_pool.quantity.split(" ")[1]}`}</b>
       </SpaceBetweenDiv>
 
       <SpaceBetweenDiv>

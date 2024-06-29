@@ -72,7 +72,7 @@ const ClaimTab = (props) => {
         <>
           <br />
           <MessageWrapper top={"5px"} height={"40px"}>
-            <p>You don't currently have any rewards to claim.</p>
+            <p>No rewards to claim.</p>
           </MessageWrapper>
         </>
       )}
@@ -81,7 +81,7 @@ const ClaimTab = (props) => {
         <>
           {" "}
           <MessageWrapper>
-            You are not logged in. Please log in to interact with this farm.
+            You are not logged in.
           </MessageWrapper>
           <button
             className="stake-button"
