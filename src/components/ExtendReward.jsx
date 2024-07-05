@@ -25,6 +25,8 @@ import DatePicker from "react-datepicker";
 import { useStateContext } from "../contexts/ContextProvider";
 import TransactionModal from "./TransactionModal";
 import { Asset } from "@wharfkit/antelope";
+import { useGetGlobal } from "./CustomHooks/useGetGlobal";
+import LoadingDiv from "./LoadingDiv";
 
 const ExtendReward = (props) => {
   const {
@@ -38,7 +40,7 @@ const ExtendReward = (props) => {
     txModalText,
     txIsLoading,
     refresh,
-    setRefresh
+    setRefresh,
   } = useStateContext();
 
   const farmName = props.farmName;
@@ -60,11 +62,25 @@ const ExtendReward = (props) => {
   const [rewardPeriod, setRewardPeriod] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
+  const [global, getGlobal, globalIsLoading] = useGetGlobal();
+
   useEffect(() => {
     let isMounted = true;
-  
-    if(isMounted){
-      if(rewardAmount == "" || rewardPeriod == ""){
+
+    if (isMounted) {
+      getGlobal();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      if (rewardAmount == "" || rewardPeriod == "") {
         setIsButtonDisabled(true);
       } else {
         setIsButtonDisabled(false);
@@ -73,31 +89,28 @@ const ExtendReward = (props) => {
 
     return () => {
       isMounted = false;
-    }
-  }, [rewardAmount, rewardPeriod])
-  
+    };
+  }, [rewardAmount, rewardPeriod]);
 
+  if (!globalIsLoading && global?.length > 0) {
+    return (
+      <>
+        {showTxModal && (
+          <TransactionModal
+            setShowTxModal={setShowTxModal}
+            txModalText={txModalText}
+            txIsLoading={txIsLoading}
+          />
+        )}
 
-  return (
-    <>
-      {showTxModal && (
-        <TransactionModal
-          setShowTxModal={setShowTxModal}
-          txModalText={txModalText}
-          txIsLoading={txIsLoading}
-        />
-      )}
-
-      <StakeContainer>
-        <LogoPlusHeaderWrapper>
-          <h2>Extend Reward</h2>
-        </LogoPlusHeaderWrapper>
-        <br />
+        <StakeContainer>
+          <LogoPlusHeaderWrapper>
+            <h2>Extend Reward</h2>
+          </LogoPlusHeaderWrapper>
+          <br />
 
           <>
-            <button
-              className="stake-button"
-            >
+            <button className="stake-button">
               {`REWARD ${rewardToExtend?.total_rewards_paid_out.split(" ")[1]}`}
             </button>
 
@@ -194,14 +207,14 @@ const ExtendReward = (props) => {
             <InputWrapper wide={true}>
               <SpaceBetweenDiv>
                 <p>Reward Period Days</p>
-                <p>1-90</p>
+                <p>{`1-${global[0]?.maximum_reward_duration / 86400}`}</p>
               </SpaceBetweenDiv>
 
               <input
                 placeholder="e.g. 30"
                 value={rewardPeriod}
                 onChange={(e) => {
-                  handleDurationInput(e, setRewardPeriod);
+                  handleDurationInput(e, setRewardPeriod, global);
                 }}
               />
             </InputWrapper>
@@ -212,17 +225,17 @@ const ExtendReward = (props) => {
               disabled={isButtonDisabled}
               onClick={async () => {
                 await extendRewardTransaction(
-                    farmName,
-                    rewardToExtend.id,
-                    rewardAmount,
-                    startNow,
-                    startTime,
-                    rewardPeriod,
-                    selectedToken,
-                    setShowTxModal,
-                    setTxModalText,
-                    setTxIsLoading,
-                    wharfSession
+                  farmName,
+                  rewardToExtend.id,
+                  rewardAmount,
+                  startNow,
+                  startTime,
+                  rewardPeriod,
+                  selectedToken,
+                  setShowTxModal,
+                  setTxModalText,
+                  setTxIsLoading,
+                  wharfSession
                 );
                 setRefresh(!refresh);
               }}
@@ -230,9 +243,18 @@ const ExtendReward = (props) => {
               {isButtonDisabled ? "MISSING DETAILS" : "EXTEND REWARD"}
             </button>
           </>
-      </StakeContainer>
-    </>
-  );
+        </StakeContainer>
+      </>
+    );
+  } else if (globalIsLoading) {
+    return <LoadingDiv />;
+  } else {
+    return (
+      <MessageWrapper>
+        Error loading contract state, please refresh.
+      </MessageWrapper>
+    );
+  }
 };
 
 export default ExtendReward;
