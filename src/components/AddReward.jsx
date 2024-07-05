@@ -15,6 +15,7 @@ import {
 import {
   handleAssetInput,
   handleCalendarChange,
+  handleDurationInput,
   handleVestingInput,
   showBalance,
 } from "../data/functions/helpers";
@@ -209,14 +210,14 @@ const AddReward = (props) => {
             <InputWrapper wide={true}>
               <SpaceBetweenDiv>
                 <p>Reward Period Days</p>
-                <p>1-30</p>
+                <p>1-90</p>
               </SpaceBetweenDiv>
 
               <input
                 placeholder="e.g. 30"
                 value={rewardPeriod}
                 onChange={(e) => {
-                  handleVestingInput(e, setRewardPeriod);
+                  handleDurationInput(e, setRewardPeriod);
                 }}
               />
             </InputWrapper>

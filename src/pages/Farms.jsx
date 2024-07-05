@@ -70,9 +70,9 @@ const Farms = () => {
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted && currentSection === "create") {
+    if (isMounted && currentSection == "create") {
       getFarmPrices();
-    } else if (isMounted && currentSection === "browse") {
+    } else if (isMounted && currentSection == "browse") {
       setFarmsAreLoading(true);
       const fetchFarms = async () => {
         if (creatorParam) {

@@ -8,14 +8,13 @@ import config from "../data/config.json";
 
 const webRenderer = new WebRenderer({ minimal: true });
 const network = config.networks[config.currentNetwork];
-const currentSelectedApi = localStorage.getItem('currentSelectedApi');
 
 export const sessionKit = new SessionKit({
   appName: config.appName,
   chains: [
     {
       id: network.chainId,
-      url: ( currentSelectedApi || network.endpoints.chain[0] )
+      url: network.endpoints.chain[0]
     },
   ],
   ui: webRenderer,

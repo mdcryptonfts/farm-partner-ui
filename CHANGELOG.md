@@ -1,6 +1,14 @@
+# v1.0.0 (July 5th, 2024)
+
+- First official public release
+- Added `useGetGlobal` hook
+- Show max reward length and vesting length dynamically
+- Show daily reward on farms instead of "reward pool"
+
 # v1.0.0-beta.5 (June 28, 2024)
 
 - Introduced new API logic
+- Added staked only section
 - Slight modifications to styles
 - Updated capitalizeFirstLetter to handle multiple words
 - Fixed case where reward id is 0 and was evaluated as false

@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
   const [priceIsLoading, setPriceIsLoading] = useState(true);
   
   const network = config.networks[config.currentNetwork];
-  const networkName = config.currentNetwork === "testnet" ? "waxtest" : "wax";
+  const networkName = config.currentNetwork == "testnet" ? "waxtest" : "wax";
 
   useEffect(() => {
     const username = localStorage.getItem("waxAccount");

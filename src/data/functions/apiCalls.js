@@ -4,35 +4,40 @@ import axios from "axios";
 const network = config.networks[config.currentNetwork];
 
 export const getFarmSingle = async (farm_name) => {
-    for (const api of network.endpoints.tokenfarms) {
-      try {
-        const res = await axios.post(
-          `${api}/get-farm`,
-          {
-            farm_name: farm_name,
-            json: true,
+  for (const api of network.endpoints.tokenfarms) {
+    try {
+      const res = await axios.post(
+        `${api}/get-farm`,
+        {
+          farm_name: farm_name,
+          json: true,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-  
-        if (res?.data?.farm) {
-          return res.data.farm;
         }
-      } catch (error) {
-        console.log(`Failed getting single farm from ${api}. Error: ${error}`);
-        return [];
+      );
+
+      if (res?.data?.farm) {
+        return res.data.farm;
       }
-  
+    } catch (error) {
+      console.log(`Failed getting single farm from ${api}. Error: ${error}`);
       return [];
     }
-  };
 
-export const getFarmsByCreator = async (user, page = 1, limit = 100, sort = "newest") => {
+    return [];
+  }
+};
+
+export const getFarmsByCreator = async (
+  user,
+  page = 1,
+  limit = 100,
+  sort = "newest"
+) => {
   for (const api of network.endpoints.tokenfarms) {
     try {
       const res = await axios.post(
@@ -41,7 +46,7 @@ export const getFarmsByCreator = async (user, page = 1, limit = 100, sort = "new
           original_creator: user,
           page: page,
           limit: limit,
-          sort: sort,          
+          sort: sort,
           json: true,
         },
         {
@@ -64,7 +69,11 @@ export const getFarmsByCreator = async (user, page = 1, limit = 100, sort = "new
   }
 };
 
-export const getFarmsByPartner = async (page = 1, limit = 100, sort = "newest") => {
+export const getFarmsByPartner = async (
+  page = 1,
+  limit = 100,
+  sort = "newest"
+) => {
   for (const api of network.endpoints.tokenfarms) {
     try {
       const res = await axios.post(
@@ -95,65 +104,70 @@ export const getFarmsByPartner = async (page = 1, limit = 100, sort = "newest") 
   }
 };
 
-export const getStakedOnly = async (user, page = 1, limit = 100, sort = "newest") => {
-    for (const api of network.endpoints.tokenfarms) {
-      try {
-        const res = await axios.post(
-          `${api}/staked-only`,
-          {
-            staker: user,
-            page: page,
-            limit: limit,
-            sort: sort,
-            json: true,
+export const getStakedOnly = async (
+  user,
+  page = 1,
+  limit = 100,
+  sort = "newest"
+) => {
+  for (const api of network.endpoints.tokenfarms) {
+    try {
+      const res = await axios.post(
+        `${api}/staked-only`,
+        {
+          staker: user,
+          page: page,
+          limit: limit,
+          sort: sort,
+          json: true,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-  
-        if (res?.data?.farms) {
-            console.log(res.data.farms);
-          return res.data.farms;
         }
-      } catch (error) {
-        console.log(`Failed getting staked only from ${api}. Error: ${error}`);
-        return [];
-      }
-      return [];
-    }
-  };
+      );
 
-  export const getStakersList = async (farm_name, page = 1, limit = 100) => {
-    for (const api of network.endpoints.tokenfarms) {
-      try {
-        const res = await axios.post(
-          `${api}/get-stakers`,
-          {
-            farm_name: farm_name,
-            page: page,
-            limit: limit,
-            json: true,
-          },
-          {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-  
-        if (res?.data?.stakers) {
-            console.log(res.data.stakers);
-          return res.data.stakers;
-        }
-      } catch (error) {
-        console.log(`Failed getting stakers list from ${api}. Error: ${error}`);
-        return [];
+      if (res?.data?.farms) {
+        console.log(res.data.farms);
+        return res.data.farms;
       }
+    } catch (error) {
+      console.log(`Failed getting staked only from ${api}. Error: ${error}`);
       return [];
     }
-  };
+    return [];
+  }
+};
+
+export const getStakersList = async (farm_name, page = 1, limit = 100) => {
+  for (const api of network.endpoints.tokenfarms) {
+    try {
+      const res = await axios.post(
+        `${api}/get-stakers`,
+        {
+          farm_name: farm_name,
+          page: page,
+          limit: limit,
+          json: true,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (res?.data?.stakers) {
+        console.log(res.data.stakers);
+        return res.data.stakers;
+      }
+    } catch (error) {
+      console.log(`Failed getting stakers list from ${api}. Error: ${error}`);
+      return [];
+    }
+    return [];
+  }
+};

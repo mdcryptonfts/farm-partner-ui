@@ -39,7 +39,8 @@ export const calculateOuterHeight = (
   if (location == "Reward Pools") {
     return `${pools?.length * 165 + baseHeight}px`;
   } else if (location == "Claim") {
-    if (claimsAreLoading || claims?.length == 0) return `${originalheight + 180}px`;
+    if (claimsAreLoading || claims?.length == 0)
+      return `${originalheight + 180}px`;
     let buttonHeight;
     switch (claims?.length) {
       case 0:
@@ -70,9 +71,9 @@ export const calculateOuterHeight = (
   }
 
   if (location == "Stake") {
-    if(farm?.vesting_time == 0 && balanceToStake != 0){
+    if (farm?.vesting_time == 0 && balanceToStake != 0) {
       return `${noPoolsHeight + originalheight + 100}px`;
-    } else if(balanceToStake == 0){
+    } else if (balanceToStake == 0) {
       return `${originalheight + 180}px`;
     }
   }
@@ -100,7 +101,8 @@ export const calculateInnerHeight = (
   if (location == "Reward Pools") {
     return `${pools?.length * 165 + baseHeight}px`;
   } else if (location == "Claim") {
-    if (claimsAreLoading || claims?.length == 0) return `${originalheight + 180}px`;
+    if (claimsAreLoading || claims?.length == 0)
+      return `${originalheight + 180}px`;
     let buttonHeight;
     switch (claims?.length) {
       case 0:
@@ -131,9 +133,9 @@ export const calculateInnerHeight = (
   }
 
   if (location == "Stake") {
-    if(farm?.vesting_time == 0 && balanceToStake != 0){
+    if (farm?.vesting_time == 0 && balanceToStake != 0) {
       return `${noPoolsHeight + originalheight + 100}px`;
-    } else if(balanceToStake == 0){
+    } else if (balanceToStake == 0) {
       return `${originalheight + 180}px`;
     }
   }
@@ -143,9 +145,9 @@ export const calculateInnerHeight = (
 
 export const capitalizeFirstLetter = (str) => {
   return str
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 };
 
 export const currentRewardPool = (rewardPool) => {
@@ -233,6 +235,12 @@ export const handleDecimalInput = (e, setDecimals) => {
   setDecimals(e.target.value.replace(/[^0-9]/g, ""));
 };
 
+export const handleDurationInput = (e, setDuration, global) => {
+  const max_days = global[0]?.maximum_reward_duration / 86400;
+  if (e?.target?.value > max_days || e.target.value.length > max_days.length) return;
+  setDuration(e.target.value.replace(/[^0-9]/g, ""));
+};
+
 export const handleNameInput = (e, setName) => {
   if (e?.target?.value?.length > 12) return;
   setName(e.target.value.replace(/[^a-z1-5.]/g, ""));
@@ -243,8 +251,10 @@ export const handleSymbolInput = (e, setSymbol) => {
   setSymbol(e.target.value.replace(/[^A-Z]/g, ""));
 };
 
-export const handleVestingInput = (e, setVestingDays) => {
-  if (e?.target?.value > 30 || e.target.value.length > 2) return;
+export const handleVestingInput = (e, setVestingDays, global) => {
+  const max_days = global[0]?.maximum_lock_seconds / 86400;
+  if (e?.target?.value > max_days || e.target.value.length > max_days.length)
+    return;
   setVestingDays(e.target.value.replace(/[^0-9]/g, ""));
 };
 

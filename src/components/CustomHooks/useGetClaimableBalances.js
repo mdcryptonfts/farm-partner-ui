@@ -24,6 +24,7 @@ export const useGetClaimableBalances = () => {
         farm_name: farm_name,
       });
 
+      console.log(result)
       setBalances(result);
     } catch (e) {
       console.log(`error fetching user rewards: ${e}`);

@@ -41,14 +41,11 @@ const FarmCard = (props) => {
   const farm = props.farm;
   const currentIndex = props.currentIndex;
   const setCurrentIndex = props.setCurrentIndex;
-  const sym = ExtendedSymbol.from(farm?.staking_token).sym;
+  const sym = ExtendedSymbol.from(farm?.staking_token)?.sym;
   const precision = sym.precision;
   const symName = sym.name;
-  const contract = ExtendedSymbol.from(farm?.staking_token).contract;
-  const totalStaked = Asset.fromUnits(
-    Number(farm?.total_staked),
-    Asset.Symbol.from(sym)
-  );
+  const contract = farm?.staking_token?.contract;
+  const totalStaked = `${farm?.total_staked / 10 ** precision} ${farm?.staking_token?.sym.split(",")[1]}`
   const currentFarmTab = props.currentFarmTab;
   const setCurrentFarmTab = props.setCurrentFarmTab;
 

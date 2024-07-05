@@ -7,12 +7,17 @@ const RewardCard = (props) => {
   const item = props.item;
   const setCurrentSection = props.setCurrentSection && props.setCurrentSection;
   const setRewardToExtend = props.setRewardToExtend && props.setRewardToExtend;
+  const paid = item?.total_rewards_paid_out?.split(" ")[0];
+  const symName = item?.total_rewards_paid_out?.split(" ")[1];
+  const precision = paid.indexOf(".") > -1 ?
+    paid.substring(paid.indexOf(".") + 1).length
+    : 0;
 
   return (
     <RewardPoolWrapper>
       <SpaceBetweenDiv>
-        <p>Reward Pool</p>
-        <b>{`${roundDownAndFormat(item.reward_pool.quantity.split(" ")[0])} ${item.reward_pool.quantity.split(" ")[1]}`}</b>
+      <p>Daily Reward</p>
+      <b>{`${roundDownAndFormat(item.reward_rate * 86400 / (10**precision) / 1e8 ) } ${symName}`}</b>
       </SpaceBetweenDiv>
 
       <SpaceBetweenDiv>
